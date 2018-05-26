@@ -101,7 +101,7 @@ analytics:
 # Site Author
 author:
   name             : "John Alex Garcia"
-  avatar           : "Profile.JPG" # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
+  avatar           : "/images/Profile.JPG" # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
   bio              : "Data Projects Portfolio"
   location         : "Thousand Oaks, CA"
   email            : "jalex.garcia102@gmail.com"
