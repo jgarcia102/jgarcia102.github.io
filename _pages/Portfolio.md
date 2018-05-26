@@ -4,7 +4,7 @@ permalink: /Portfolio/
 title: "Data Projects Portfolio"
 author_profile: true
 header:
-  image: "C:/Users/Alex/Desktop/jgarcia102.github.io/images/Downtown.jpg"
+  image: "C:/Users/Alex/Desktop/jgarcia102.github.io/images/Downtown"
 ---
 
 {% include base_path %}
