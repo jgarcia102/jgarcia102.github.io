@@ -2,7 +2,7 @@
 title: "About"
 permalink: /about/
 header:
-  image: "C:/Users/Alex/Desktop/jgarcia102.github.io/images/downtown.jpg"
+  image: "C:/Users/Alex/Desktop/jgarcia102.github.io/images/Downtown.jpg"
 ---
 
 I am a high school math teacher looking for an entry level Data Analyst position.
