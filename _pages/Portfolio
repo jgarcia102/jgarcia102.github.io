@@ -3,6 +3,8 @@ layout: archive
 permalink: /Portfolio/
 title: "Data Projects Portfolio"
 author_profile: true
+header:
+  image: "C:/Users/Alex/Desktop/jgarcia102.github.io/images/downtown.jpg"
 ---
 
 {% include base_path %}
