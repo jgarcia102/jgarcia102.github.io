@@ -1,10 +1,11 @@
 ---
+layout: "post"
 title: "Machine Learning: Predicting Survivability on Kaggle's Titanic Dataset"
-data: 2018-05-26
+date: 2018-05-26
 tags: [machine learning, classification, Kaggle]
-excerpt: "Machine Learning, Titanic, Classification"
 header:
   image: "/images/Titanic.jpg"
+excerpt: "Machine Learning, Titanic, Classification"
 ---
 
 {% include Markdown_Titanic.html %}
