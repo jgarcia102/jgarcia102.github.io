@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+<title></title>
+
+<script type="text/javascript">
+window.onload = function() {
+  var imgs = document.getElementsByTagName('img'), i, img;
+  for (i = 0; i < imgs.length; i++) {
+    img = imgs[i];
+    // center an image if it is the only element of its parent
+    if (img.parentElement.childElementCount === 1)
+      img.parentElement.style.textAlign = 'center';
+  }
+};
+</script>
+
+
+
+
+
+<style type="text/css">
+body, td {
+   font-family: sans-serif;
+   background-color: white;
+   font-size: 13px;
+}
+
+body {
+  max-width: 800px;
+  margin: auto;
+  padding: 1em;
+  line-height: 20px;
+}
+
+tt, code, pre {
+   font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
+}
+
+h1 {
+   font-size:2.2em;
+}
+
+h2 {
+   font-size:1.8em;
+}
+
+h3 {
+   font-size:1.4em;
+}
+
+h4 {
+   font-size:1.0em;
+}
+
+h5 {
+   font-size:0.9em;
+}
+
+h6 {
+   font-size:0.8em;
+}
+
+a:visited {
+   color: rgb(50%, 0%, 50%);
+}
+
+pre, img {
+  max-width: 100%;
+}
+pre {
+  overflow-x: auto;
+}
+pre code {
+   display: block; padding: 0.5em;
+}
+
+code {
+  font-size: 92%;
+  border: 1px solid #ccc;
+}
+
+code[class] {
+  background-color: #F8F8F8;
+}
+
+table, td, th {
+  border: none;
+}
+
+blockquote {
+   color:#666666;
+   margin:0;
+   padding-left: 1em;
+   border-left: 0.5em #EEE solid;
+}
+
+hr {
+   height: 0px;
+   border-bottom: none;
+   border-top-width: thin;
+   border-top-style: dotted;
+   border-top-color: #999999;
+}
+
+@media print {
+   * {
+      background: transparent !important;
+      color: black !important;
+      filter:none !important;
+      -ms-filter: none !important;
+   }
+
+   body {
+      font-size:12pt;
+      max-width:100%;
+   }
+
+   a, a:visited {
+      text-decoration: underline;
+   }
+
+   hr {
+      visibility: hidden;
+      page-break-before: always;
+   }
+
+   pre, blockquote {
+      padding-right: 1em;
+      page-break-inside: avoid;
+   }
+
+   tr, img {
+      page-break-inside: avoid;
+   }
+
+   img {
+      max-width: 100% !important;
+   }
+
+   @page :left {
+      margin: 15mm 20mm 15mm 10mm;
+   }
+
+   @page :right {
+      margin: 15mm 10mm 15mm 20mm;
+   }
+
+   p, h2, h3 {
+      orphans: 3; widows: 3;
+   }
+
+   h2, h3 {
+      page-break-after: avoid;
+   }
+}
+</style>
+
+
+
+</head>
+
+<body>
+<p>This is the writeup for my Kaggle Submission on the Titanic Dataset.</p>
+
+<p>First I need to load the data.</p>
+
+<pre><code class="r">setwd(&quot;H:/Google Drive/Stats Projects/Data Sets&quot;)
+titanic_train &lt;- read.csv(&quot;Titanic_train.csv&quot;, stringsAsFactors = FALSE)
+titanic_test &lt;- read.csv(&quot;Titanic_test.csv&quot;, stringsAsFactors = FALSE)
+</code></pre>
+
+<p>I examine my data to see what I am working with. I want to check for missing values first, so I use the summary function.</p>
+
+<pre><code class="r">summary(titanic_train)
+</code></pre>
+
+<pre><code>##   PassengerId       Survived          Pclass          Name          
+##  Min.   :  1.0   Min.   :0.0000   Min.   :1.000   Length:891        
+##  1st Qu.:223.5   1st Qu.:0.0000   1st Qu.:2.000   Class :character  
+##  Median :446.0   Median :0.0000   Median :3.000   Mode  :character  
+##  Mean   :446.0   Mean   :0.3838   Mean   :2.309                     
+##  3rd Qu.:668.5   3rd Qu.:1.0000   3rd Qu.:3.000                     
+##  Max.   :891.0   Max.   :1.0000   Max.   :3.000                     
+##                                                                     
+##      Sex                 Age            SibSp           Parch       
+##  Length:891         Min.   : 0.42   Min.   :0.000   Min.   :0.0000  
+##  Class :character   1st Qu.:20.12   1st Qu.:0.000   1st Qu.:0.0000  
+##  Mode  :character   Median :28.00   Median :0.000   Median :0.0000  
+##                     Mean   :29.70   Mean   :0.523   Mean   :0.3816  
+##                     3rd Qu.:38.00   3rd Qu.:1.000   3rd Qu.:0.0000  
+##                     Max.   :80.00   Max.   :8.000   Max.   :6.0000  
+##                     NA&#39;s   :177                                     
+##     Ticket               Fare           Cabin             Embarked        
+##  Length:891         Min.   :  0.00   Length:891         Length:891        
+##  Class :character   1st Qu.:  7.91   Class :character   Class :character  
+##  Mode  :character   Median : 14.45   Mode  :character   Mode  :character  
+##                     Mean   : 32.20                                        
+##                     3rd Qu.: 31.00                                        
+##                     Max.   :512.33                                        
+## 
+</code></pre>
+
+<p>I see that there are 177 missing age values, and I anticipate many more missing ages in the test set. I combine the training and the test set into one dataframe called &#39;full&#39; so I can impute in one step. Combining the data frames provides more information to impute with. I will have to add a column of NA&#39;s to the test set for the Survived variable. Also, many of the variables would be more useful as factors. I will convert all the character data to factors and run the summary on the new dataframe.</p>
+
+<pre><code class="r">library(&#39;dplyr&#39;)
+</code></pre>
+
+<pre><code>## Warning: package &#39;dplyr&#39; was built under R version 3.4.3
+</code></pre>
+
+<pre><code>## 
+## Attaching package: &#39;dplyr&#39;
+</code></pre>
+
+<pre><code>## The following objects are masked from &#39;package:stats&#39;:
+## 
+##     filter, lag
+</code></pre>
+
+<pre><code>## The following objects are masked from &#39;package:base&#39;:
+## 
+##     intersect, setdiff, setequal, union
+</code></pre>
+
+<pre><code class="r">titanic_test$Survived &lt;- rep(NA, nrow(titanic_test))
+full &lt;- bind_rows(titanic_train, titanic_test)
+
+full$Embarked &lt;- as.factor(full$Embarked)
+full$Pclass &lt;- as.factor(full$Pclass)
+full$Sex &lt;- as.factor(full$Sex)
+full$Ticket &lt;- as.factor(full$Ticket)
+full$Cabin &lt;- as.factor(full$Cabin)
+full$Embarked &lt;- as.factor(full$Embarked)
+
+summary(full)
+</code></pre>
+
+<pre><code>##   PassengerId      Survived      Pclass      Name               Sex     
+##  Min.   :   1   Min.   :0.0000   1:323   Length:1309        female:466  
+##  1st Qu.: 328   1st Qu.:0.0000   2:277   Class :character   male  :843  
+##  Median : 655   Median :0.0000   3:709   Mode  :character               
+##  Mean   : 655   Mean   :0.3838                                          
+##  3rd Qu.: 982   3rd Qu.:1.0000                                          
+##  Max.   :1309   Max.   :1.0000                                          
+##                 NA&#39;s   :418                                             
+##       Age            SibSp            Parch            Ticket    
+##  Min.   : 0.17   Min.   :0.0000   Min.   :0.000   CA. 2343:  11  
+##  1st Qu.:21.00   1st Qu.:0.0000   1st Qu.:0.000   1601    :   8  
+##  Median :28.00   Median :0.0000   Median :0.000   CA 2144 :   8  
+##  Mean   :29.88   Mean   :0.4989   Mean   :0.385   3101295 :   7  
+##  3rd Qu.:39.00   3rd Qu.:1.0000   3rd Qu.:0.000   347077  :   7  
+##  Max.   :80.00   Max.   :8.0000   Max.   :9.000   347082  :   7  
+##  NA&#39;s   :263                                      (Other) :1261  
+##       Fare                     Cabin      Embarked
+##  Min.   :  0.000                  :1014    :  2   
+##  1st Qu.:  7.896   C23 C25 C27    :   6   C:270   
+##  Median : 14.454   B57 B59 B63 B66:   5   Q:123   
+##  Mean   : 33.295   G6             :   5   S:914   
+##  3rd Qu.: 31.275   B96 B98        :   4           
+##  Max.   :512.329   C22 C26        :   4           
+##  NA&#39;s   :1         (Other)        : 271
+</code></pre>
+
+<p>The summary shows 263 NA&#39;s in Age, 1 NA in Fare, 2 blank entries in Embarked, and 1014 blank entries in Cabin. There are also the 418 NA&#39;s that I added in the Survived column from the test set. To impute, I set the blank entries in Embarked to NA. I use the &#39;mice&#39; package and the cart method to impute. I omit the passengerID, Ticket and Name columns because they unique values in them. I omit the Cabin column because it has too many missing values.</p>
+
+<pre><code class="r">full$Embarked[830] &lt;- NA
+full$Embarked[62] &lt;- NA
+
+library(mice)
+</code></pre>
+
+<pre><code>## Warning: package &#39;mice&#39; was built under R version 3.4.3
+</code></pre>
+
+<pre><code>## Loading required package: lattice
+</code></pre>
+
+<pre><code class="r">imp &lt;- full
+
+tempData &lt;- mice(imp[,c(2,3,5:8, 10, 12)],m=1,maxit=50,meth=&#39;pmm&#39;,seed=500, printFlag =  FALSE)
+
+imp &lt;- complete(tempData,1)
+full$Age &lt;- imp$Age
+full$Fare &lt;- imp$Fare
+full$Embarked &lt;- imp$Embarked
+</code></pre>
+
+<p>I apply the factor function to full$Embarked to remove the forth factor, &quot;&quot;.</p>
+
+<pre><code class="r">full$Embarked &lt;- factor(full$Embarked)
+</code></pre>
+
+<p>Now that I filled in the missing values, I have to make use of the remaining data. First I want to create a family variable by adding the SibSp and Parch variables.</p>
+
+<pre><code class="r">full$Family &lt;- full$Parch + full$SibSp
+</code></pre>
+
+<p>Next I want to make use of the Cabin variable. I examine the first six non-empty rows of the Cabin column.</p>
+
+<pre><code class="r">head(subset(full, full$Cabin != &quot;&quot;))$Cabin
+</code></pre>
+
+<pre><code>## [1] C85  C123 E46  G6   C103 D56 
+## 187 Levels:  A10 A11 A14 A16 A18 A19 A20 A21 A23 A24 A26 A29 A31 ... T
+</code></pre>
+
+<p>The Cabin numbers all start with a letter and are followed by a two or three digit number. I&#39;ll start easy, I take the letter from the front of the Cabin number. If there is no Cabin number, I change it to &#39;UNK&#39;.</p>
+
+<pre><code class="r">full$Letter &lt;- substr(full$Cabin, 1, 1)
+full$Letter[which(full$Letter == &quot;&quot;)] &lt;- &quot;UNK&quot;
+</code></pre>
+
+<p>Now the hard part. I want to get the Cabin number, but some of the numbers are one digit, some are two digits, and some of the numbers are three digits. I start by taking the second, third, and fourth characters together in the Cabin string.</p>
+
+<pre><code class="r">full$Number &lt;- substr(full$Cabin, 2, 4)
+full$Number
+</code></pre>
+
+<pre><code>##    [1] &quot;&quot;    &quot;85&quot;  &quot;&quot;    &quot;123&quot; &quot;&quot;    &quot;&quot;    &quot;46&quot;  &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;6&quot;  
+##   [12] &quot;103&quot; &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;56&quot; 
+##   [23] &quot;&quot;    &quot;6&quot;   &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;23 &quot; &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;78&quot;  &quot;&quot;   
+##   [34] &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;   
+##   [45] &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;33&quot;  &quot;&quot;    &quot;30&quot; 
+##   [56] &quot;52&quot;  &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;28&quot;  &quot;83&quot;  &quot;&quot;    &quot;&quot;    &quot;&quot;   
+##   [67] &quot;33&quot;  &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot; G7&quot; &quot;&quot;   
+##   [78] &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;   
+##   [89] &quot;23 &quot; &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;31&quot;  &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;5&quot;   &quot;10 &quot; &quot;&quot;   
+##  [100] &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;26&quot;  &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;   
+##  [111] &quot;110&quot; &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;58 &quot; &quot;&quot;    &quot;&quot;   
+##  [122] &quot;&quot;    &quot;&quot;    &quot;101&quot; &quot;26&quot;  &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot; E6&quot; &quot;&quot;    &quot;&quot;    &quot;&quot;   
+##  [133] &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;47&quot;  &quot;123&quot; &quot;&quot;    &quot;86&quot;  &quot;&quot;    &quot;&quot;    &quot;&quot;   
+##  [144] &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;2&quot;   &quot;&quot;    &quot;&quot;    &quot;2&quot;   &quot;&quot;    &quot;&quot;   
+##  [155] &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;   
+##  [166] &quot;&quot;    &quot;33&quot;  &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;19&quot;  &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;7&quot;   &quot;&quot;   
+##  [177] &quot;&quot;    &quot;49&quot;  &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;4&quot;   &quot;&quot;    &quot;32&quot;  &quot;&quot;   
+##  [188] &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;2&quot;   &quot;4&quot;   &quot;80&quot;  &quot;&quot;    &quot;&quot;   
+##  [199] &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;6&quot;   &quot;&quot;    &quot;&quot;    &quot;&quot;   
+##  [210] &quot;31&quot;  &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;36&quot;  &quot;&quot;    &quot;&quot;    &quot;15&quot;  &quot;&quot;   
+##  [221] &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;93&quot;  &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;83&quot; 
+##  [232] &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;   
+##  [243] &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;78&quot;  &quot;&quot;    &quot;&quot;    &quot;35&quot;  &quot;&quot;    &quot;&quot;    &quot;6&quot;   &quot;87&quot; 
+##  [254] &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;77&quot;  &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;67&quot;  &quot;94&quot; 
+##  [265] &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;125&quot; &quot;99&quot;  &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;118&quot; &quot;&quot;   
+##  [276] &quot;7&quot;   &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;19&quot;  &quot;&quot;   
+##  [287] &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;49&quot;  &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;   
+##  [298] &quot;22 &quot; &quot;106&quot; &quot;58 &quot; &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;101&quot; &quot;&quot;    &quot;22 &quot; &quot;&quot;    &quot;65&quot; 
+##  [309] &quot;&quot;    &quot;36&quot;  &quot;54&quot;  &quot;57 &quot; &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;7&quot;  
+##  [320] &quot;34&quot;  &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;32&quot;  &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;18&quot; 
+##  [331] &quot;&quot;    &quot;124&quot; &quot;91&quot;  &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;2&quot;   &quot;40&quot;  &quot;&quot;    &quot;&quot;    &quot;2&quot;  
+##  [342] &quot;23 &quot; &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;33&quot;  &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;128&quot;
+##  [353] &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;33&quot;  &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;   
+##  [364] &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;37&quot;  &quot;&quot;    &quot;&quot;    &quot;35&quot;  &quot;50&quot;  &quot;&quot;    &quot;&quot;    &quot;&quot;   
+##  [375] &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;82&quot;  &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;   
+##  [386] &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;96 &quot; &quot;&quot;    &quot;&quot;    &quot;36&quot;  &quot;6&quot;   &quot;&quot;   
+##  [397] &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;   
+##  [408] &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;78&quot;  &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;   
+##  [419] &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;   
+##  [430] &quot;10&quot;  &quot;52&quot;  &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;44&quot;  &quot;96 &quot; &quot;&quot;    &quot;&quot;    &quot;23 &quot; &quot;&quot;   
+##  [441] &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;34&quot;  &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;104&quot; &quot;&quot;   
+##  [452] &quot;&quot;    &quot;111&quot; &quot;92&quot;  &quot;&quot;    &quot;&quot;    &quot;38&quot;  &quot;21&quot;  &quot;&quot;    &quot;&quot;    &quot;12&quot;  &quot;&quot;   
+##  [463] &quot;63&quot;  &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;   
+##  [474] &quot;&quot;    &quot;&quot;    &quot;14&quot;  &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;   
+##  [485] &quot;49&quot;  &quot;&quot;    &quot;93&quot;  &quot;37&quot;  &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;30&quot;  &quot;&quot;    &quot;&quot;   
+##  [496] &quot;&quot;    &quot;20&quot;  &quot;&quot;    &quot;22 &quot; &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;79&quot;  &quot;65&quot; 
+##  [507] &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;25&quot;  &quot;&quot;    &quot;&quot;    &quot;46&quot;  &quot;33&quot; 
+##  [518] &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;73&quot;  &quot;&quot;    &quot;&quot;    &quot;18&quot;  &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;95&quot; 
+##  [529] &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;38&quot;  &quot;&quot;    &quot;&quot;   
+##  [540] &quot;39&quot;  &quot;22&quot;  &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;86&quot;  &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;   
+##  [551] &quot;70&quot;  &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;16&quot;  &quot;&quot;    &quot;67&quot;  &quot;&quot;    &quot;&quot;   
+##  [562] &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;101&quot;
+##  [573] &quot;25&quot;  &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;44&quot;  &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;68&quot;  &quot;&quot;   
+##  [584] &quot;10&quot;  &quot;&quot;    &quot;68&quot;  &quot;&quot;    &quot;41&quot;  &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;20&quot;  &quot;&quot;    &quot;&quot;   
+##  [595] &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;20&quot;  &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;   
+##  [606] &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;125&quot; &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;   
+##  [617] &quot;&quot;    &quot;&quot;    &quot;4&quot;   &quot;&quot;    &quot;&quot;    &quot;19&quot;  &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;50&quot;  &quot;&quot;   
+##  [628] &quot;9&quot;   &quot;&quot;    &quot;&quot;    &quot;23&quot;  &quot;&quot;    &quot;50&quot;  &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;   
+##  [639] &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;35&quot;  &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;33&quot;  &quot;&quot;    &quot;26&quot;  &quot;&quot;   
+##  [650] &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;48&quot; 
+##  [661] &quot;&quot;    &quot;&quot;    &quot;58&quot;  &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;126&quot; &quot;&quot;   
+##  [672] &quot;71&quot;  &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;51 &quot; &quot;&quot;    &quot;49&quot; 
+##  [683] &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;5&quot;   &quot;20&quot;  &quot;&quot;    &quot;&quot;   
+##  [694] &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;68&quot;  &quot; G6&quot; &quot;62 &quot; &quot;24&quot;  &quot;&quot;    &quot;&quot;   
+##  [705] &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;24&quot;  &quot;&quot;    &quot;&quot;    &quot;90&quot;  &quot;124&quot; &quot;126&quot; &quot;&quot;    &quot;&quot;   
+##  [716] &quot; G7&quot; &quot;45&quot;  &quot;101&quot; &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;8&quot;   &quot;&quot;   
+##  [727] &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;5&quot;   &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;   
+##  [738] &quot;101&quot; &quot;&quot;    &quot;&quot;    &quot;45&quot;  &quot;46&quot;  &quot;57 &quot; &quot;&quot;    &quot;&quot;    &quot;22&quot;  &quot;&quot;    &quot;&quot;   
+##  [749] &quot;30&quot;  &quot;&quot;    &quot;&quot;    &quot;121&quot; &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;   
+##  [760] &quot;77&quot;  &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;96 &quot; &quot;&quot;    &quot;11&quot;  &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;   
+##  [771] &quot;&quot;    &quot;&quot;    &quot;77&quot;  &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;38&quot;  &quot;&quot;    &quot;&quot;    &quot;3&quot;   &quot;&quot;   
+##  [782] &quot;20&quot;  &quot;6&quot;   &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;82 &quot; &quot;&quot;    &quot;&quot;   
+##  [793] &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;17&quot;  &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;96 &quot;
+##  [804] &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;36&quot;  &quot;&quot;    &quot;&quot;    &quot;8&quot;   &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;   
+##  [815] &quot;&quot;    &quot;102&quot; &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;69&quot;  &quot;&quot;    &quot;&quot;    &quot;121&quot; &quot;&quot;   
+##  [826] &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;28&quot;  &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;49&quot; 
+##  [837] &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;47&quot;  &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;   
+##  [848] &quot;&quot;    &quot;&quot;    &quot;92&quot;  &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;28&quot;  &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;17&quot; 
+##  [859] &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;17&quot;  &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;24&quot;  &quot;&quot;   
+##  [870] &quot;&quot;    &quot;&quot;    &quot;35&quot;  &quot;51 &quot; &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;50&quot; 
+##  [881] &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;42&quot;  &quot;&quot;    &quot;148&quot; &quot;&quot;   
+##  [892] &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;   
+##  [903] &quot;&quot;    &quot;45&quot;  &quot;&quot;    &quot;31&quot;  &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;   
+##  [914] &quot;&quot;    &quot;&quot;    &quot;57 &quot; &quot;&quot;    &quot;36&quot;  &quot;&quot;    &quot;21&quot;  &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;   
+##  [925] &quot;&quot;    &quot;78&quot;  &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;34&quot;  &quot;&quot;    &quot;&quot;   
+##  [936] &quot;19&quot;  &quot;&quot;    &quot;9&quot;   &quot;&quot;    &quot;15&quot;  &quot;&quot;    &quot;31&quot;  &quot;&quot;    &quot;&quot;    &quot;23 &quot; &quot;&quot;   
+##  [947] &quot;&quot;    &quot;&quot;    &quot; G6&quot; &quot;&quot;    &quot;61&quot;  &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;57 &quot; &quot;&quot;   
+##  [958] &quot;&quot;    &quot;&quot;    &quot;53&quot;  &quot;23 &quot; &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;43&quot;  &quot;130&quot; &quot;132&quot; &quot;&quot;   
+##  [969] &quot;101&quot; &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;55 &quot; &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;   
+##  [980] &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;71&quot;  &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;46&quot;  &quot;&quot;    &quot;&quot;   
+##  [991] &quot;&quot;    &quot;116&quot; &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;    &quot;&quot;   
+##  [ reached getOption(&quot;max.print&quot;) -- omitted 309 entries ]
+</code></pre>
+
+<p>I see an issue. The string for row 76 is &quot; G7&quot;. Namely, it has a letter. I take a closer look.</p>
+
+<pre><code class="r">full$Cabin[76]
+</code></pre>
+
+<pre><code>## [1] F G73
+## 187 Levels:  A10 A11 A14 A16 A18 A19 A20 A21 A23 A24 A26 A29 A31 ... T
+</code></pre>
+
+<p>There are two letters in this Cabin Id. I am skeptical that the cabin data will yield much information, but I extract all the numbers. Also, some passengers had multiple cabins assigned to them. In those instances, I took the first cabin. I extract the numbers and convert it to a numerical variable.</p>
+
+<pre><code class="r">full$Number &lt;- substr(full$Cabin, 2, 5)
+full$Number[which(substr(full$Number, 2, 2) == &quot;E&quot; | substr(full$Number, 2, 2) == &quot;G&quot;)] &lt;- substr(full$Number[which(substr(full$Number, 2, 2) == &quot;E&quot; | substr(full$Number, 2, 2) == &quot;G&quot;)], 3, 5)
+full$Number[which(substr(full$Number, 4, 4) == &quot;B&quot; | substr(full$Number, 4, 4) == &quot;C&quot; | substr(full$Number, 4, 4) == &quot;D&quot;)] &lt;- substr(full$Number[which(substr(full$Number, 4, 4) == &quot;B&quot; | substr(full$Number, 4, 4) == &quot;C&quot; | substr(full$Number, 4, 4) == &quot;D&quot;)], 1, 3)
+full$Number[which(full$Number == &quot;39 E&quot;)] &lt;- 39
+full$Number &lt;- as.numeric(full$Number)
+</code></pre>
+
+<p>Next, I group the cabin numbers into groups of 25 and I convert them to a factor variable. Any missing umbers are given &quot;UNK&quot;</p>
+
+<pre><code class="r">full$Number[which(full$Number &lt;= 25)] &lt;- 25
+full$Number[which(full$Number &lt;= 50 &amp; full$Number &gt; 25)] &lt;- 50
+full$Number[which(full$Number &lt;= 75 &amp; full$Number &gt; 50)] &lt;- 75
+full$Number[which(full$Number &lt;= 100 &amp; full$Number &gt; 75)] &lt;- 100
+full$Number[which(full$Number &lt;= 125 &amp; full$Number &gt; 100)] &lt;- 125
+full$Number[which(full$Number &lt;= 150 &amp; full$Number &gt; 125)] &lt;- 150
+full$Number &lt;- as.character(full$Number)
+full$Number[which(is.na(full$Number))] &lt;- &quot;UNK&quot;
+full$Number &lt;- as.factor(full$Number)
+</code></pre>
+
+<p>Since the majority of the Cabin information is missing, I create a column called &quot;known&quot;. If cabin information is known, I assign a TRUE. If not, FALSE.</p>
+
+<pre><code class="r">full$Known &lt;- full$Letter != &quot;UNK&quot;
+</code></pre>
+
+<p>Next I look at the Name column.</p>
+
+<pre><code class="r">head(full$Name)
+</code></pre>
+
+<pre><code>## [1] &quot;Braund, Mr. Owen Harris&quot;                            
+## [2] &quot;Cumings, Mrs. John Bradley (Florence Briggs Thayer)&quot;
+## [3] &quot;Heikkinen, Miss. Laina&quot;                             
+## [4] &quot;Futrelle, Mrs. Jacques Heath (Lily May Peel)&quot;       
+## [5] &quot;Allen, Mr. William Henry&quot;                           
+## [6] &quot;Moran, Mr. James&quot;
+</code></pre>
+
+<p>The Name column appears to have the passenger&#39;s name as well as their title. The name&#39;s are probably too unique to make use of, but the titles should be easy to use.</p>
+
+<pre><code class="r">full$Title &lt;- sub(&quot;.*, &quot;, &quot;&quot;, full$Name)
+full$Title &lt;- sub(&quot;. .*&quot;, &quot;&quot;, full$Title)
+sort(table(full$Title))
+</code></pre>
+
+<pre><code>## 
+##     Capt      Don     Dona Jonkheer     Lady      Mme      Sir       th 
+##        1        1        1        1        1        1        1        1 
+##    Major     Mlle       Ms      Col       Dr      Rev   Master      Mrs 
+##        2        2        2        4        8        8       61      197 
+##     Miss       Mr 
+##      260      757
+</code></pre>
+
+<p>There are 18 titles total. Most are Mr, Miss, Mrs, and Master. To consolidate the titles, I will make a title called &#39;Esteemed&#39; to lump all of the titles that are earned or nobility. First, Ms can be combined with Miss. I googled the stranger titles to determine their correct placement. </p>
+
+<pre><code class="r">full$Title[which(full$Title == &quot;Mlle&quot;)] &lt;- &quot;Miss&quot;
+full$Title[which(full$Title == &quot;Ms&quot;)] &lt;- &quot;Miss&quot;
+full$Title[which(full$Title == &quot;Mme&quot;)] &lt;- &quot;Mrs&quot;
+full$Title[which(full$Title == &quot;Lady&quot;)] &lt;- &quot;Mrs&quot;
+full$Title[which(full$Title == &quot;Capt&quot;)] &lt;- &quot;Esteemed&quot;
+full$Title[which(full$Title == &quot;Col&quot;)] &lt;- &quot;Esteemed&quot;
+full$Title[which(full$Title == &quot;Don&quot;)] &lt;- &quot;Esteemed&quot;
+full$Title[which(full$Title == &quot;Dr&quot;)] &lt;- &quot;Esteemed&quot;
+full$Title[which(full$Title == &quot;Jonkheer&quot;)] &lt;- &quot;Esteemed&quot;
+full$Title[which(full$Title == &quot;Major&quot;)] &lt;- &quot;Esteemed&quot;
+full$Title[which(full$Title == &quot;Master&quot;)] &lt;- &quot;Esteemed&quot;
+full$Title[which(full$Title == &quot;Rev&quot;)] &lt;- &quot;Esteemed&quot;
+full$Title[which(full$Title == &quot;Sir&quot;)] &lt;- &quot;Esteemed&quot;
+full$Title[which(full$Title == &quot;th&quot;)] &lt;- &quot;Esteemed&quot;
+full$Title[which(full$Title == &quot;Dona&quot;)] &lt;- &quot;Esteemed&quot;
+</code></pre>
+
+<p>I remove the Cabin, Ticket, and Name columns then set the Letter, Title, and Survived columns to factors.</p>
+
+<pre><code class="r">full$Cabin &lt;- NULL
+full$Ticket &lt;- NULL
+full$Name &lt;- NULL
+full$Letter &lt;- as.factor(full$Letter)
+full$Title &lt;- as.factor(full$Title)
+full$Survived &lt;- as.factor(full$Survived)
+</code></pre>
+
+<p>I seperate the data frame back into the original training and testing set. I remove the PassengerId column from the training set and the Survived column from the testing set.</p>
+
+<pre><code class="r">titanic_train &lt;- subset(full, PassengerId &lt; 892)
+titanic_test &lt;- subset(full, PassengerId &gt; 891)
+titanic_train$PassengerId &lt;- NULL
+titanic_test$Survived &lt;- NULL
+</code></pre>
+
+<p>I split the training set into a training and testing set.</p>
+
+<pre><code class="r">library(caTools)
+</code></pre>
+
+<pre><code>## Warning: package &#39;caTools&#39; was built under R version 3.4.3
+</code></pre>
+
+<pre><code class="r">set.seed(80)
+split &lt;- sample.split(titanic_train$Survived, SplitRatio = .7)
+train &lt;- subset(titanic_train, split == TRUE)
+test &lt;- subset(titanic_train, split == FALSE)
+</code></pre>
+
+<p>To determine it a passenger lives, I plan on using three models amd set up a voting system between the three models to determine if a passenger lives. The three models are random forests, support vector machines, and logistic regression. I will make the random forest model first because I can use the variable importance plot to help with feature selection.</p>
+
+<pre><code class="r">library(randomForest)
+</code></pre>
+
+<pre><code>## Warning: package &#39;randomForest&#39; was built under R version 3.4.3
+</code></pre>
+
+<pre><code>## randomForest 4.6-12
+</code></pre>
+
+<pre><code>## Type rfNews() to see new features/changes/bug fixes.
+</code></pre>
+
+<pre><code>## 
+## Attaching package: &#39;randomForest&#39;
+</code></pre>
+
+<pre><code>## The following object is masked from &#39;package:dplyr&#39;:
+## 
+##     combine
+</code></pre>
+
+<pre><code class="r">set.seed(80)
+forest1 &lt;- randomForest(Survived ~ ., data = train, ntree = 2000, importance = TRUE)
+varImpPlot(forest1)
+</code></pre>
+
+<p><img src="figure/unnamed-chunk-20-1.png" alt="plot of chunk unnamed-chunk-20"></p>
+
+<pre><code class="r">pred1 &lt;- predict(forest1, newdata = test)
+table(test$Survived, pred1 == 1)
+</code></pre>
+
+<pre><code>##    
+##     FALSE TRUE
+##   0   150   15
+##   1    25   78
+</code></pre>
+
+<pre><code class="r">(table(test$Survived, pred1 == 1)[1,1] + table(test$Survived, pred1 == 1)[2,2])/nrow(test)
+</code></pre>
+
+<pre><code>## [1] 0.8507463
+</code></pre>
+
+<p>I use the information in the mean decrease in accuracy graph and the mean decrese in gini graph to come up with the follwoing random forest as the best random forest. I do a little bit of guess and check to come up with the forest that provides the highest test set accuracy.</p>
+
+<pre><code class="r">set.seed(80)
+forest1 &lt;- randomForest(Survived ~ Age + Pclass + Fare + Family + Title + Letter + Embarked, 
+                            data = train, ntree = 2000, importance = TRUE)
+
+pred1 &lt;- predict(forest1, newdata = test)
+(table(test$Survived, pred1 == 1)[1,1] + table(test$Survived, pred1 == 1)[2,2])/nrow(test)
+</code></pre>
+
+<pre><code>## [1] 0.8656716
+</code></pre>
+
+<p>Next I will make the support vector machine model. I start with the same formula as I used in the random forest.</p>
+
+<pre><code class="r">library(e1071)
+</code></pre>
+
+<pre><code>## Warning: package &#39;e1071&#39; was built under R version 3.4.3
+</code></pre>
+
+<pre><code class="r">svm1 &lt;- svm(Survived ~ Age + Pclass + Fare + Family + Title + Letter + Embarked, data = train)
+pred1 &lt;- predict(svm1, newdata = test)
+(table(test$Survived, pred1 == 1)[1,1] + table(test$Survived, pred1 == 1)[2,2])/nrow(test)
+</code></pre>
+
+<pre><code>## [1] 0.8432836
+</code></pre>
+
+<p>I add and remove variables to find the best accuracy on the test set and come up with the following model.</p>
+
+<pre><code class="r">svm1 &lt;- svm(Survived ~ . - Letter - Sex - Known - Number - SibSp - Embarked, data = train)
+pred1 &lt;- predict(svm1, newdata = test)
+(table(test$Survived, pred1 == 1)[1,1] + table(test$Survived, pred1 == 1)[2,2])/nrow(test)
+</code></pre>
+
+<pre><code>## [1] 0.8544776
+</code></pre>
+
+<p>The third model is logistic regression. I start with the formula I used for the support vector machine model.</p>
+
+<pre><code class="r">log1 &lt;- glm(Survived ~ . - Letter - Sex - Known - Number - SibSp - Embarked,
+               data = train, family = &quot;binomial&quot;)
+</code></pre>
+
+<p>When I try to use the predict function with my logistic regression model I get an error stating &quot;factor Letter has new levels T&quot;. I inspect the factor levels of the train data frame and the test dataframe.</p>
+
+<pre><code class="r">table(train$Letter)
+</code></pre>
+
+<pre><code>## 
+##   A   B   C   D   E   F   G   T UNK 
+##  12  33  41  21  23   8   4   0 481
+</code></pre>
+
+<pre><code class="r">table(test$Letter)
+</code></pre>
+
+<pre><code>## 
+##   A   B   C   D   E   F   G   T UNK 
+##   3  14  18  12   9   5   0   1 206
+</code></pre>
+
+<p>The logistic regression model doesn&#39;t know what to do with the T factor in the test set because it wasn&#39;t given one in the training set. The fix is to set the T to &quot;UNK&quot;</p>
+
+<pre><code class="r">test$Letter[which(test$Letter == &quot;T&quot;)] &lt;- &quot;UNK&quot;
+</code></pre>
+
+<p>I retry the logistic regression model.</p>
+
+<pre><code class="r">log1 &lt;- glm(Survived ~ . - Letter - Sex - Known - Number - SibSp - Embarked,
+           data = train, family = &quot;binomial&quot;)
+
+pred1 &lt;- predict(log1, newdata = test, type = &quot;response&quot;)
+(table(test$Survived, pred1 &gt; .5)[1,1] + table(test$Survived, pred1 &gt; .5)[2,2])/nrow(test)
+</code></pre>
+
+<pre><code>## [1] 0.8320896
+</code></pre>
+
+<p>I add and remove variables until I get the best accuracy on the test set.</p>
+
+<pre><code class="r">log1 &lt;- glm(Survived ~ . - SibSp - Parch - Embarked - Sex - Embarked, 
+           data = train, family = &quot;binomial&quot;)
+
+pred1 &lt;- predict(log1, newdata = test, type = &quot;response&quot;)
+</code></pre>
+
+<pre><code>## Warning in predict.lm(object, newdata, se.fit, scale = 1, type =
+## ifelse(type == : prediction from a rank-deficient fit may be misleading
+</code></pre>
+
+<pre><code class="r">(table(test$Survived, pred1 &gt; .5)[1,1] + table(test$Survived, pred1 &gt; .5)[2,2])/nrow(test)
+</code></pre>
+
+<pre><code>## [1] 0.8432836
+</code></pre>
+
+<p>Now that I have my three models complete, I need to make predictions on the unseen data to submit to Kaggle. I feed the submission data into each model. The logistic regression model returns a probability, so I need to determine if the passenger lives based off of the probability.</p>
+
+<pre><code class="r">forest_pred &lt;- predict(forest1, newdata = titanic_test)
+svm_pred &lt;- predict(svm1, newdata = titanic_test)
+log_pred &lt;- predict(log1, newdata = titanic_test, type = &quot;response&quot;)
+</code></pre>
+
+<pre><code>## Warning in predict.lm(object, newdata, se.fit, scale = 1, type =
+## ifelse(type == : prediction from a rank-deficient fit may be misleading
+</code></pre>
+
+<pre><code class="r">log_pred[which(log_pred &gt; .5)] &lt;- 1
+log_pred[which(log_pred &lt; .5)] &lt;- 0
+</code></pre>
+
+<p>I set up the voting system with the vote variable by adding up the values from each model. Each model votes 1 if it believes the passenger survives and 0 if it believes the passenger perishes. Since the random forest and the support vector machine each vote 2 if the passenger lives and one if the passenger dies, I subtract two to account for that. I add the Survived column to titanic_test where my submission data is that holds the number of votes each passenger gets. Finally, zero or one votes and the passenger dies, 2 or 3 votes the passenger lives.</p>
+
+<pre><code class="r">vote &lt;- as.numeric(forest_pred) + as.numeric(svm_pred) + log_pred - 2
+titanic_test$Survived &lt;- vote
+titanic_test$Survived[which(titanic_test$Survived &lt; 2)] &lt;- 0
+titanic_test$Survived[which(titanic_test$Survived &gt; 1)] &lt;- 1
+</code></pre>
+
+<p>I make a data frame for the submission data, and then remove all columns except the PassengerId and the Survived column with my predictions. I then save the data frame as a csv on my computer.</p>
+
+<pre><code class="r">Submission &lt;- titanic_test
+Submission[,2:11] &lt;- NULL
+setwd(&quot;H:/Google Drive/Stats Projects/Data Sets&quot;) 
+write.csv(Submission, &quot;Kaggle_Titanic_Submission.csv&quot;, row.names = FALSE)
+</code></pre>
+
+</body>
+
+</html>
