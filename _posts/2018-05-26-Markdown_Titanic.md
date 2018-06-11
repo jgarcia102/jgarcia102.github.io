@@ -6,8 +6,6 @@ header:
   image: "/images/Titanic.jpg"
 excerpt: "Machine Learning, Titanic, Classification"
 ---
-
-# Machine Learning: Predicting Survivability on Kaggle's Titanic Dataset
 *#### John Garcia*
 *#### May 22, 2018*
 
