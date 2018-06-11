@@ -6,3 +6,5 @@ header:
   image: "/images/Titanic.jpg"
 excerpt: "Machine Learning, Titanic, Classification"
 ---
+
+{% include Markdown_Titanic.html %}
