@@ -6,7 +6,7 @@ header:
   image: "/images/Titanic.jpg"
 excerpt: "Machine Learning, Titanic, Classification"
 ---
-*#### John Garcia*
-*#### May 22, 2018*
+#### *John Garcia*
+#### *May 22, 2018*
 
 {% include Markdown_Titanic.html %}
