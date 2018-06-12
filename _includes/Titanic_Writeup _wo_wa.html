@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0101)file:///H:/Google%20Drive/Stats%20Projects/Projects%20in%20R/Kaggle_Titanic/Markdown_Titanic_wow.html -->
+<!-- saved from url=(0082)file:///C:/Users/Alex/Desktop/jgarcia102.github.io/_includes/Markdown_Titanic.html -->
 <html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 
@@ -254,7 +254,7 @@ h6 {
 </style>
 
 
-<script type="text/javascript" src="./Markdown_Titanic_wow_files/MathJax.js.download"></script><style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+<script type="text/javascript" src="./Titanic_Writeup _wo_wa_files/MathJax.js.download"></script><style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
 .MathJax_Menu_Button .MathJax_Hover_Arrow {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px; font-family: 'Courier New',Courier; font-size: 9px; color: #F0F0F0}
 .MathJax_Menu_Button .MathJax_Hover_Arrow span {display: block; background-color: #AAA; border: 1px solid; border-radius: 3px; line-height: 0; padding: 4px}
 .MathJax_Hover_Arrow:hover {color: white!important; border: 2px solid #CCC!important}
@@ -377,12 +377,7 @@ button.code-folding-btn:focus {
 
 
 
-<div class="container-fluid main-container" style="
-    padding-left: 0px;
-    padding-right: 0px;
-    margin-left: 0px;
-    margin-right: 0px;
-">
+<div class="container-fluid main-container">
 
 <!-- tabsets -->
 <script>
@@ -444,7 +439,6 @@ titanic_test &lt;- read.csv(<span class="hljs-string">"Titanic_test.csv"</span>,
 ## </code></pre>
 <p>I see that there are 177 missing age values, and I anticipate many more missing age values in the test set. I combine the training and the testing set into one dataframe called ‘full’ so I can impute in one step. Combining the dataframes provides more information to impute with. I will have to add a column of NA’s to the test set for the Survived variable. Also, many of the variables would be more useful as factors. I will convert all the character data to factors and run the summary on the new dataframe.</p>
 <pre class="r"><code class="hljs"><span class="hljs-keyword">library</span>(<span class="hljs-string">'dplyr'</span>)</code></pre>
-
 <pre class="r"><code class="hljs">titanic_test$Survived &lt;- rep(<span class="hljs-literal">NA</span>, nrow(titanic_test))
 full &lt;- bind_rows(titanic_train, titanic_test)
 
@@ -669,14 +663,14 @@ pred1 &lt;- predict(log1, newdata = test, type = <span class="hljs-string">"resp
            data = train, family = <span class="hljs-string">"binomial"</span>)
 
 pred1 &lt;- predict(log1, newdata = test, type = <span class="hljs-string">"response"</span>)</code></pre>
+<pre><code class="hljs">## Warning in predict.lm(object, newdata, se.fit, scale = 1, type =
+## ifelse(type == : prediction from a rank-deficient fit may be misleading</code></pre>
 <pre class="r"><code class="hljs">(table(test$Survived, pred1 &gt; <span class="hljs-number">.5</span>)[<span class="hljs-number">1</span>,<span class="hljs-number">1</span>] + table(test$Survived, pred1 &gt; <span class="hljs-number">.5</span>)[<span class="hljs-number">2</span>,<span class="hljs-number">2</span>])/nrow(test)</code></pre>
 <pre><code class="hljs">## [1] 0.858209</code></pre>
 <p>Now that I have my three models complete, I need to make predictions on the unseen data to submit to Kaggle. I feed the submission data into each model. The logistic regression model returns a probability, so I need to determine if the passenger lives based off of the probability.</p>
 <pre class="r"><code class="hljs">forest_pred &lt;- predict(forest1, newdata = titanic_test)
 svm_pred &lt;- predict(svm1, newdata = titanic_test)
 log_pred &lt;- predict(log1, newdata = titanic_test, type = <span class="hljs-string">"response"</span>)</code></pre>
-<pre><code class="hljs">## Warning in predict.lm(object, newdata, se.fit, scale = 1, type =
-## ifelse(type == : prediction from a rank-deficient fit may be misleading</code></pre>
 <pre class="r"><code class="hljs">log_pred[which(log_pred &gt; <span class="hljs-number">.5</span>)] &lt;- <span class="hljs-number">1</span>
 log_pred[which(log_pred &lt; <span class="hljs-number">.5</span>)] &lt;- <span class="hljs-number">0</span></code></pre>
 <p>I set up the voting system with the vote variable by adding up the values from each model. Each model votes 1 if it believes the passenger survives and 0 if it believes the passenger perishes. Since the random forest and the support vector machine each vote 2 if the passenger lives and one if the passenger dies, I subtract two to account for that. I add the Survived column to titanic_test where my submission data is that holds the number of votes each passenger gets. Finally, zero or one votes and the passenger dies, 2 or 3 votes the passenger lives.</p>
