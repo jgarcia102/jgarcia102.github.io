@@ -1,3 +1,4 @@
+
 <!-- saved from url=(0087)file:///C:/Users/Alex/Desktop/jgarcia102.github.io/_includes/Kaggle_House_Writeup2.html -->
 <html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
@@ -257,6 +258,14 @@ h6 {
 #MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
 #MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
 .MathJax_Error {color: #CC0000; font-style: italic}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
 </style><style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
 .MathJax_Menu_Button .MathJax_Hover_Arrow {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px; font-family: 'Courier New',Courier; font-size: 9px; color: #F0F0F0}
 .MathJax_Menu_Button .MathJax_Hover_Arrow span {display: block; background-color: #AAA; border: 1px solid; border-radius: 3px; line-height: 0; padding: 4px}
@@ -352,9 +361,9 @@ h6 {
 .MJXp-scale8 {-webkit-transform: scaleX(.8); -moz-transform: scaleX(.8); -ms-transform: scaleX(.8); -o-transform: scaleX(.8); transform: scaleX(.8)}
 .MJXp-scale9 {-webkit-transform: scaleX(.9); -moz-transform: scaleX(.9); -ms-transform: scaleX(.9); -o-transform: scaleX(.9); transform: scaleX(.9)}
 .MathJax_PHTML .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
-</style><script type="text/javascript" src="./Kaggle_House_Writeup2_files/MathJax.js(1).download"></script></head>
+</style><script type="text/javascript" src="./Kaggle_House_Writeup2_files/MathJax.js(1).download"></script><script type="text/javascript" src="./Kaggle_House_Writeup2_files/MathJax.js(2).download"></script><script type="text/javascript" src="./Kaggle_House_Writeup2_files/MathJax.js(3).download"></script></head>
 
-<body><div id="MathJax_Message" style="display: none;"></div><div id="MathJax_Message" style="display: none;"></div>
+<body><div id="MathJax_Message" style="display: none;"></div><div id="MathJax_Message" style="display: none;"></div><div id="MathJax_Message" style="display: none;"></div><div id="MathJax_Message" style="display: none;"></div>
 
 <style type="text/css">
 .main-container {
@@ -380,7 +389,10 @@ button.code-folding-btn:focus {
 
 
 
-<div class="container-fluid main-container">
+<div class="container-fluid main-container" style="
+    padding-left: 0px;
+    padding-right: 0px;
+">
 
 <!-- tabsets -->
 <script>
@@ -400,9 +412,6 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Machine Learning: Predicting House Prices in Ames, Iowa</h1>
-<h4 class="author"><em>John Garcia</em></h4>
-<h4 class="date"><em>June 3, 2018</em></h4>
 
 </div>
 
@@ -410,22 +419,22 @@ $(document).ready(function () {
 <div id="machine-learning-predicting-house-prices-in-ames-iowa" class="section level1">
 <p>Kaggle is a website that hosts data analytics competitions. The House Prices competition has analysts predict the sale price of houses in Ames, Iowa. Kaggle provides a training data set that includes 79 independent variables and the dependent variable, the sale price of the house. The test set includes the 79 independent variables but does not include the sale price of the house. It is the competitor’s job to predict the sale price on the test set.</p>
 <p>To start the analysis I load the data.</p>
-<pre class="r"><code class="hljs">setwd(<span class="hljs-string"><span class="hljs-string">"H:/Google Drive/Stats Projects/Data Sets"</span></span>)
-house_train &lt;- read.csv(<span class="hljs-string"><span class="hljs-string">"House_train.csv"</span></span>)
-house_test &lt;- read.csv(<span class="hljs-string"><span class="hljs-string">"House_test.csv"</span></span>)</code></pre>
+<pre class="r"><code class="hljs">setwd(<span class="hljs-string"><span class="hljs-string"><span class="hljs-string"><span class="hljs-string">"H:/Google Drive/Stats Projects/Data Sets"</span></span></span></span>)
+house_train &lt;- read.csv(<span class="hljs-string"><span class="hljs-string"><span class="hljs-string"><span class="hljs-string">"House_train.csv"</span></span></span></span>)
+house_test &lt;- read.csv(<span class="hljs-string"><span class="hljs-string"><span class="hljs-string"><span class="hljs-string">"House_test.csv"</span></span></span></span>)</code></pre>
 <p>Next I want to combine the training and testing data sets into one data frame so I can impute the missing values. To combine the two data frames they must have the same number of columns. I give the test set a column of NA’s to accomplish this goal. Additionally, the categorical variables in the training and test sets are a little bit off. Some of the categorical variables have a different number of factors in the training and the testing set. After I make sure they each have the same number of factors I combine the two data frames.</p>
-<pre class="r"><code class="hljs"><span class="hljs-keyword"><span class="hljs-keyword">library</span></span>(<span class="hljs-string"><span class="hljs-string">'dplyr'</span></span>)</code></pre>
-<pre class="r"><code class="hljs">house_test$SalePrice &lt;- rep(<span class="hljs-literal"><span class="hljs-literal">NA</span></span>, nrow(house_test))         <span class="hljs-comment"><span class="hljs-comment">#Column of NA's</span></span>
-<span class="hljs-keyword"><span class="hljs-keyword">for</span></span>(i <span class="hljs-keyword"><span class="hljs-keyword">in</span></span> <span class="hljs-number"><span class="hljs-number">1</span></span>:ncol(house_test)){                            <span class="hljs-comment"><span class="hljs-comment">#Match the number of factor levels</span></span>
-  <span class="hljs-keyword"><span class="hljs-keyword">if</span></span>(is.factor(house_test[,i])){
+<pre class="r"><code class="hljs"><span class="hljs-keyword"><span class="hljs-keyword"><span class="hljs-keyword"><span class="hljs-keyword">library</span></span></span></span>(<span class="hljs-string"><span class="hljs-string"><span class="hljs-string"><span class="hljs-string">'dplyr'</span></span></span></span>)</code></pre>
+<pre class="r"><code class="hljs">house_test$SalePrice &lt;- rep(<span class="hljs-literal"><span class="hljs-literal"><span class="hljs-literal"><span class="hljs-literal">NA</span></span></span></span>, nrow(house_test))         <span class="hljs-comment"><span class="hljs-comment"><span class="hljs-comment"><span class="hljs-comment">#Column of NA's</span></span></span></span>
+<span class="hljs-keyword"><span class="hljs-keyword"><span class="hljs-keyword"><span class="hljs-keyword">for</span></span></span></span>(i <span class="hljs-keyword"><span class="hljs-keyword"><span class="hljs-keyword"><span class="hljs-keyword">in</span></span></span></span> <span class="hljs-number"><span class="hljs-number"><span class="hljs-number"><span class="hljs-number">1</span></span></span></span>:ncol(house_test)){                            <span class="hljs-comment"><span class="hljs-comment"><span class="hljs-comment"><span class="hljs-comment">#Match the number of factor levels</span></span></span></span>
+  <span class="hljs-keyword"><span class="hljs-keyword"><span class="hljs-keyword"><span class="hljs-keyword">if</span></span></span></span>(is.factor(house_test[,i])){
     levels(house_test[,i]) &lt;- levels(house_train[,i])
   }
 }
-full &lt;- bind_rows(house_train, house_test)                 <span class="hljs-comment"><span class="hljs-comment">#Combine the data frames</span></span></code></pre>
+full &lt;- bind_rows(house_train, house_test)                 <span class="hljs-comment"><span class="hljs-comment"><span class="hljs-comment"><span class="hljs-comment">#Combine the data frames</span></span></span></span></code></pre>
 <p>I want to see what variables have the most missing values and how many so I can make decisions on how I want to fill in missing values.</p>
 <pre class="r"><code class="hljs">nrow(full)</code></pre>
 <pre><code class="hljs">## [1] 2919</code></pre>
-<pre class="r"><code class="hljs">sort(sapply(full, <span class="hljs-keyword"><span class="hljs-keyword">function</span></span>(x) { sum(is.na(x)) }), decreasing=<span class="hljs-literal"><span class="hljs-literal">TRUE</span></span>)</code></pre>
+<pre class="r"><code class="hljs">sort(sapply(full, <span class="hljs-keyword"><span class="hljs-keyword"><span class="hljs-keyword"><span class="hljs-keyword">function</span></span></span></span>(x) { sum(is.na(x)) }), decreasing=<span class="hljs-literal"><span class="hljs-literal"><span class="hljs-literal"><span class="hljs-literal">TRUE</span></span></span></span>)</code></pre>
 <pre><code class="hljs">##        PoolQC   MiscFeature         Alley         Fence     SalePrice
 ##          2909          2814          2721          2348          1459
 ##   FireplaceQu   LotFrontage   GarageYrBlt  GarageFinish    GarageQual
@@ -461,20 +470,20 @@ full &lt;- bind_rows(house_train, house_test)                 <span class="hljs-
 ## SaleCondition
 ##             0</code></pre>
 <p>I want to remove the PoolQC, MiscFeature, Alley, and Fence variables because more than half of their values are missing.</p>
-<pre class="r"><code class="hljs">full$PoolQC &lt;- <span class="hljs-literal"><span class="hljs-literal">NULL</span></span>
-full$MiscFeature &lt;- <span class="hljs-literal"><span class="hljs-literal">NULL</span></span>
-full$Alley &lt;- <span class="hljs-literal"><span class="hljs-literal">NULL</span></span>
-full$Fence &lt;- <span class="hljs-literal"><span class="hljs-literal">NULL</span></span>
+<pre class="r"><code class="hljs">full$PoolQC &lt;- <span class="hljs-literal"><span class="hljs-literal"><span class="hljs-literal"><span class="hljs-literal">NULL</span></span></span></span>
+full$MiscFeature &lt;- <span class="hljs-literal"><span class="hljs-literal"><span class="hljs-literal"><span class="hljs-literal">NULL</span></span></span></span>
+full$Alley &lt;- <span class="hljs-literal"><span class="hljs-literal"><span class="hljs-literal"><span class="hljs-literal">NULL</span></span></span></span>
+full$Fence &lt;- <span class="hljs-literal"><span class="hljs-literal"><span class="hljs-literal"><span class="hljs-literal">NULL</span></span></span></span>
 
-full &lt;- full[,c(<span class="hljs-number"><span class="hljs-number">1</span></span>, <span class="hljs-number"><span class="hljs-number">77</span></span>, <span class="hljs-number"><span class="hljs-number">2</span></span>:<span class="hljs-number"><span class="hljs-number">76</span></span>)]  <span class="hljs-comment"><span class="hljs-comment">#I rearrange the data frame so the Id is first and the dependent variable is second.</span></span></code></pre>
+full &lt;- full[,c(<span class="hljs-number"><span class="hljs-number"><span class="hljs-number"><span class="hljs-number">1</span></span></span></span>, <span class="hljs-number"><span class="hljs-number"><span class="hljs-number"><span class="hljs-number">77</span></span></span></span>, <span class="hljs-number"><span class="hljs-number"><span class="hljs-number"><span class="hljs-number">2</span></span></span></span>:<span class="hljs-number"><span class="hljs-number"><span class="hljs-number"><span class="hljs-number">76</span></span></span></span>)]  <span class="hljs-comment"><span class="hljs-comment"><span class="hljs-comment"><span class="hljs-comment">#I rearrange the data frame so the Id is first and the dependent variable is second.</span></span></span></span></code></pre>
 <p>I will use the ‘mice’ package in R to impute the data. I will use the ‘cart’ method because it can fill in missing values in categorical variables and numerical variables. I omit the first column in the full data frame because it is the Id column, a unique identifier.</p>
-<pre class="r"><code class="hljs"><span class="hljs-keyword"><span class="hljs-keyword">library</span></span>(mice)</code></pre>
-<pre class="r"><code class="hljs">imp &lt;- mice(full[,<span class="hljs-number"><span class="hljs-number">2</span></span>:<span class="hljs-number"><span class="hljs-number">76</span></span>], m=<span class="hljs-number"><span class="hljs-number">1</span></span>, meth=<span class="hljs-string"><span class="hljs-string">'cart'</span></span>, printFlag = <span class="hljs-literal"><span class="hljs-literal">FALSE</span></span>, seed = <span class="hljs-number"><span class="hljs-number">69</span></span>) <span class="hljs-comment"><span class="hljs-comment">#Data imputation with cart</span></span>
-imp_data &lt;- complete(imp, <span class="hljs-number"><span class="hljs-number">1</span></span>)
+<pre class="r"><code class="hljs"><span class="hljs-keyword"><span class="hljs-keyword"><span class="hljs-keyword"><span class="hljs-keyword">library</span></span></span></span>(mice)</code></pre>
+<pre class="r"><code class="hljs">imp &lt;- mice(full[,<span class="hljs-number"><span class="hljs-number"><span class="hljs-number"><span class="hljs-number">2</span></span></span></span>:<span class="hljs-number"><span class="hljs-number"><span class="hljs-number"><span class="hljs-number">76</span></span></span></span>], m=<span class="hljs-number"><span class="hljs-number"><span class="hljs-number"><span class="hljs-number">1</span></span></span></span>, meth=<span class="hljs-string"><span class="hljs-string"><span class="hljs-string"><span class="hljs-string">'cart'</span></span></span></span>, printFlag = <span class="hljs-literal"><span class="hljs-literal"><span class="hljs-literal"><span class="hljs-literal">FALSE</span></span></span></span>, seed = <span class="hljs-number"><span class="hljs-number"><span class="hljs-number"><span class="hljs-number">69</span></span></span></span>) <span class="hljs-comment"><span class="hljs-comment"><span class="hljs-comment"><span class="hljs-comment">#Data imputation with cart</span></span></span></span>
+imp_data &lt;- complete(imp, <span class="hljs-number"><span class="hljs-number"><span class="hljs-number"><span class="hljs-number">1</span></span></span></span>)
 
-<span class="hljs-keyword"><span class="hljs-keyword">for</span></span>(i <span class="hljs-keyword"><span class="hljs-keyword">in</span></span> <span class="hljs-number"><span class="hljs-number">3</span></span>:ncol(full)){
-  <span class="hljs-keyword"><span class="hljs-keyword">if</span></span>(sum(is.na(full[,i])) != <span class="hljs-number"><span class="hljs-number">0</span></span>){
-    full[,i] &lt;- imp_data[,i-<span class="hljs-number"><span class="hljs-number">1</span></span>]
+<span class="hljs-keyword"><span class="hljs-keyword"><span class="hljs-keyword"><span class="hljs-keyword">for</span></span></span></span>(i <span class="hljs-keyword"><span class="hljs-keyword"><span class="hljs-keyword"><span class="hljs-keyword">in</span></span></span></span> <span class="hljs-number"><span class="hljs-number"><span class="hljs-number"><span class="hljs-number">3</span></span></span></span>:ncol(full)){
+  <span class="hljs-keyword"><span class="hljs-keyword"><span class="hljs-keyword"><span class="hljs-keyword">if</span></span></span></span>(sum(is.na(full[,i])) != <span class="hljs-number"><span class="hljs-number"><span class="hljs-number"><span class="hljs-number">0</span></span></span></span>){
+    full[,i] &lt;- imp_data[,i-<span class="hljs-number"><span class="hljs-number"><span class="hljs-number"><span class="hljs-number">1</span></span></span></span>]
   }
 }</code></pre>
 <p>Now that the imputation process is complete, I need to start with feature selection. I start by creating tables for a few of the categorical variables and observe that some of the factor levels have few data points attributed to them.</p>
@@ -492,20 +501,20 @@ imp_data &lt;- complete(imp, <span class="hljs-number"><span class="hljs-number"
 ## 1493   92  474    3  857</code></pre>
 <p>To fix the RoofMatl and Heating columns I lump the scarce factor levels into a category called ‘Other’. For HeatingQC ‘Po’ represents poor condition and the next closest factor option is ‘Fa’, fair condition. I reclassify the three poors and fair.</p>
 <pre class="r"><code class="hljs">full$RoofMatl = as.character(full$RoofMatl)
-full$RoofMatl[which(full$RoofMatl == <span class="hljs-string"><span class="hljs-string">"ClyTile"</span></span>)] &lt;- <span class="hljs-string"><span class="hljs-string">"Other"</span></span>
-full$RoofMatl[which(full$RoofMatl == <span class="hljs-string"><span class="hljs-string">"Membran"</span></span>)] &lt;- <span class="hljs-string"><span class="hljs-string">"Other"</span></span>
-full$RoofMatl[which(full$RoofMatl == <span class="hljs-string"><span class="hljs-string">"Metal"</span></span>)] &lt;- <span class="hljs-string"><span class="hljs-string">"Other"</span></span>
-full$RoofMatl[which(full$RoofMatl == <span class="hljs-string"><span class="hljs-string">"Roll"</span></span>)] &lt;- <span class="hljs-string"><span class="hljs-string">"Other"</span></span>
+full$RoofMatl[which(full$RoofMatl == <span class="hljs-string"><span class="hljs-string"><span class="hljs-string"><span class="hljs-string">"ClyTile"</span></span></span></span>)] &lt;- <span class="hljs-string"><span class="hljs-string"><span class="hljs-string"><span class="hljs-string">"Other"</span></span></span></span>
+full$RoofMatl[which(full$RoofMatl == <span class="hljs-string"><span class="hljs-string"><span class="hljs-string"><span class="hljs-string">"Membran"</span></span></span></span>)] &lt;- <span class="hljs-string"><span class="hljs-string"><span class="hljs-string"><span class="hljs-string">"Other"</span></span></span></span>
+full$RoofMatl[which(full$RoofMatl == <span class="hljs-string"><span class="hljs-string"><span class="hljs-string"><span class="hljs-string">"Metal"</span></span></span></span>)] &lt;- <span class="hljs-string"><span class="hljs-string"><span class="hljs-string"><span class="hljs-string">"Other"</span></span></span></span>
+full$RoofMatl[which(full$RoofMatl == <span class="hljs-string"><span class="hljs-string"><span class="hljs-string"><span class="hljs-string">"Roll"</span></span></span></span>)] &lt;- <span class="hljs-string"><span class="hljs-string"><span class="hljs-string"><span class="hljs-string">"Other"</span></span></span></span>
 full$RoofMatl &lt;- as.factor(full$RoofMatl)
 
 full$Heating &lt;- as.character(full$Heating)
-full$Heating[which(full$Heating == <span class="hljs-string"><span class="hljs-string">"Floor"</span></span>)] &lt;- <span class="hljs-string"><span class="hljs-string">"Other"</span></span>
-full$Heating[which(full$Heating == <span class="hljs-string"><span class="hljs-string">"OthW"</span></span>)] &lt;- <span class="hljs-string"><span class="hljs-string">"Other"</span></span>
-full$Heating[which(full$Heating == <span class="hljs-string"><span class="hljs-string">"Wall"</span></span>)] &lt;- <span class="hljs-string"><span class="hljs-string">"Other"</span></span>
+full$Heating[which(full$Heating == <span class="hljs-string"><span class="hljs-string"><span class="hljs-string"><span class="hljs-string">"Floor"</span></span></span></span>)] &lt;- <span class="hljs-string"><span class="hljs-string"><span class="hljs-string"><span class="hljs-string">"Other"</span></span></span></span>
+full$Heating[which(full$Heating == <span class="hljs-string"><span class="hljs-string"><span class="hljs-string"><span class="hljs-string">"OthW"</span></span></span></span>)] &lt;- <span class="hljs-string"><span class="hljs-string"><span class="hljs-string"><span class="hljs-string">"Other"</span></span></span></span>
+full$Heating[which(full$Heating == <span class="hljs-string"><span class="hljs-string"><span class="hljs-string"><span class="hljs-string">"Wall"</span></span></span></span>)] &lt;- <span class="hljs-string"><span class="hljs-string"><span class="hljs-string"><span class="hljs-string">"Other"</span></span></span></span>
 full$Heating &lt;- as.factor(full$Heating)
 
 full$HeatingQC &lt;- as.character(full$HeatingQC)
-full$HeatingQC[which(full$HeatingQC == <span class="hljs-string"><span class="hljs-string">"Po"</span></span>)] &lt;- <span class="hljs-string"><span class="hljs-string">"Fa"</span></span>
+full$HeatingQC[which(full$HeatingQC == <span class="hljs-string"><span class="hljs-string"><span class="hljs-string"><span class="hljs-string">"Po"</span></span></span></span>)] &lt;- <span class="hljs-string"><span class="hljs-string"><span class="hljs-string"><span class="hljs-string">"Fa"</span></span></span></span>
 full$HeatingQC &lt;- as.factor(full$HeatingQC)</code></pre>
 <p>Next I look at the Condition1 and Condition2 variables.</p>
 <pre class="r"><code class="hljs">table(full$Condition1)</code></pre>
@@ -517,23 +526,23 @@ full$HeatingQC &lt;- as.factor(full$HeatingQC)</code></pre>
 ## Artery  Feedr   Norm   PosA   PosN   RRAe   RRAn   RRNn
 ##      5     13   2889      4      4      1      1      2</code></pre>
 <p>These variables display the same information. Condition1 tells whether the property is near any positive or negative features such as railroads, artery roads, or parks. Condition2 tells if the property is near a second positive or negative feature. Instead of using Condition1 and Condition2 I expand out the variables into 8 different columns, one for each possible positive or negative feature. Each column will display a 1 if the property is near that feature or a 0 if it is not near it.</p>
-<pre class="r"><code class="hljs">full$Artery &lt;- <span class="hljs-number"><span class="hljs-number">0</span></span>
-full$Feedr &lt;- <span class="hljs-number"><span class="hljs-number">0</span></span>
-full$PosA &lt;- <span class="hljs-number"><span class="hljs-number">0</span></span>
-full$PosN &lt;- <span class="hljs-number"><span class="hljs-number">0</span></span>
-full$RRAe &lt;- <span class="hljs-number"><span class="hljs-number">0</span></span>
-full$RRAn &lt;- <span class="hljs-number"><span class="hljs-number">0</span></span>
-full$RRNn &lt;- <span class="hljs-number"><span class="hljs-number">0</span></span>
-full$RRNe &lt;- <span class="hljs-number"><span class="hljs-number">0</span></span>
+<pre class="r"><code class="hljs">full$Artery &lt;- <span class="hljs-number"><span class="hljs-number"><span class="hljs-number"><span class="hljs-number">0</span></span></span></span>
+full$Feedr &lt;- <span class="hljs-number"><span class="hljs-number"><span class="hljs-number"><span class="hljs-number">0</span></span></span></span>
+full$PosA &lt;- <span class="hljs-number"><span class="hljs-number"><span class="hljs-number"><span class="hljs-number">0</span></span></span></span>
+full$PosN &lt;- <span class="hljs-number"><span class="hljs-number"><span class="hljs-number"><span class="hljs-number">0</span></span></span></span>
+full$RRAe &lt;- <span class="hljs-number"><span class="hljs-number"><span class="hljs-number"><span class="hljs-number">0</span></span></span></span>
+full$RRAn &lt;- <span class="hljs-number"><span class="hljs-number"><span class="hljs-number"><span class="hljs-number">0</span></span></span></span>
+full$RRNn &lt;- <span class="hljs-number"><span class="hljs-number"><span class="hljs-number"><span class="hljs-number">0</span></span></span></span>
+full$RRNe &lt;- <span class="hljs-number"><span class="hljs-number"><span class="hljs-number"><span class="hljs-number">0</span></span></span></span>
 
-full$Artery[which(full$Condition1 == <span class="hljs-string"><span class="hljs-string">"Artery"</span></span> | full$Condition2 == <span class="hljs-string"><span class="hljs-string">"Artery"</span></span>)] &lt;- <span class="hljs-number"><span class="hljs-number">1</span></span>
-full$Feedr[which(full$Condition1 == <span class="hljs-string"><span class="hljs-string">"Feedr"</span></span> | full$Condition2 == <span class="hljs-string"><span class="hljs-string">"Feedr"</span></span>)] &lt;- <span class="hljs-number"><span class="hljs-number">1</span></span>
-full$PosA[which(full$Condition1 == <span class="hljs-string"><span class="hljs-string">"PosA"</span></span> | full$Condition2 == <span class="hljs-string"><span class="hljs-string">"PosA"</span></span>)] &lt;- <span class="hljs-number"><span class="hljs-number">1</span></span>
-full$PosN[which(full$Condition1 == <span class="hljs-string"><span class="hljs-string">"PosN"</span></span> | full$Condition2 == <span class="hljs-string"><span class="hljs-string">"PosN"</span></span>)] &lt;- <span class="hljs-number"><span class="hljs-number">1</span></span>
-full$RRAe[which(full$Condition1 == <span class="hljs-string"><span class="hljs-string">"RRAe"</span></span> | full$Condition2 == <span class="hljs-string"><span class="hljs-string">"RRAe"</span></span>)] &lt;- <span class="hljs-number"><span class="hljs-number">1</span></span>
-full$RRAn[which(full$Condition1 == <span class="hljs-string"><span class="hljs-string">"RRAn"</span></span> | full$Condition2 == <span class="hljs-string"><span class="hljs-string">"RRAn"</span></span>)] &lt;- <span class="hljs-number"><span class="hljs-number">1</span></span>
-full$RRNn[which(full$Condition1 == <span class="hljs-string"><span class="hljs-string">"RRNn"</span></span> | full$Condition2 == <span class="hljs-string"><span class="hljs-string">"RRNn"</span></span>)] &lt;- <span class="hljs-number"><span class="hljs-number">1</span></span>
-full$RRNe[which(full$Condition1 == <span class="hljs-string"><span class="hljs-string">"RRNe"</span></span> | full$Condition2 == <span class="hljs-string"><span class="hljs-string">"RRNe"</span></span>)] &lt;- <span class="hljs-number"><span class="hljs-number">1</span></span>
+full$Artery[which(full$Condition1 == <span class="hljs-string"><span class="hljs-string"><span class="hljs-string"><span class="hljs-string">"Artery"</span></span></span></span> | full$Condition2 == <span class="hljs-string"><span class="hljs-string"><span class="hljs-string"><span class="hljs-string">"Artery"</span></span></span></span>)] &lt;- <span class="hljs-number"><span class="hljs-number"><span class="hljs-number"><span class="hljs-number">1</span></span></span></span>
+full$Feedr[which(full$Condition1 == <span class="hljs-string"><span class="hljs-string"><span class="hljs-string"><span class="hljs-string">"Feedr"</span></span></span></span> | full$Condition2 == <span class="hljs-string"><span class="hljs-string"><span class="hljs-string"><span class="hljs-string">"Feedr"</span></span></span></span>)] &lt;- <span class="hljs-number"><span class="hljs-number"><span class="hljs-number"><span class="hljs-number">1</span></span></span></span>
+full$PosA[which(full$Condition1 == <span class="hljs-string"><span class="hljs-string"><span class="hljs-string"><span class="hljs-string">"PosA"</span></span></span></span> | full$Condition2 == <span class="hljs-string"><span class="hljs-string"><span class="hljs-string"><span class="hljs-string">"PosA"</span></span></span></span>)] &lt;- <span class="hljs-number"><span class="hljs-number"><span class="hljs-number"><span class="hljs-number">1</span></span></span></span>
+full$PosN[which(full$Condition1 == <span class="hljs-string"><span class="hljs-string"><span class="hljs-string"><span class="hljs-string">"PosN"</span></span></span></span> | full$Condition2 == <span class="hljs-string"><span class="hljs-string"><span class="hljs-string"><span class="hljs-string">"PosN"</span></span></span></span>)] &lt;- <span class="hljs-number"><span class="hljs-number"><span class="hljs-number"><span class="hljs-number">1</span></span></span></span>
+full$RRAe[which(full$Condition1 == <span class="hljs-string"><span class="hljs-string"><span class="hljs-string"><span class="hljs-string">"RRAe"</span></span></span></span> | full$Condition2 == <span class="hljs-string"><span class="hljs-string"><span class="hljs-string"><span class="hljs-string">"RRAe"</span></span></span></span>)] &lt;- <span class="hljs-number"><span class="hljs-number"><span class="hljs-number"><span class="hljs-number">1</span></span></span></span>
+full$RRAn[which(full$Condition1 == <span class="hljs-string"><span class="hljs-string"><span class="hljs-string"><span class="hljs-string">"RRAn"</span></span></span></span> | full$Condition2 == <span class="hljs-string"><span class="hljs-string"><span class="hljs-string"><span class="hljs-string">"RRAn"</span></span></span></span>)] &lt;- <span class="hljs-number"><span class="hljs-number"><span class="hljs-number"><span class="hljs-number">1</span></span></span></span>
+full$RRNn[which(full$Condition1 == <span class="hljs-string"><span class="hljs-string"><span class="hljs-string"><span class="hljs-string">"RRNn"</span></span></span></span> | full$Condition2 == <span class="hljs-string"><span class="hljs-string"><span class="hljs-string"><span class="hljs-string">"RRNn"</span></span></span></span>)] &lt;- <span class="hljs-number"><span class="hljs-number"><span class="hljs-number"><span class="hljs-number">1</span></span></span></span>
+full$RRNe[which(full$Condition1 == <span class="hljs-string"><span class="hljs-string"><span class="hljs-string"><span class="hljs-string">"RRNe"</span></span></span></span> | full$Condition2 == <span class="hljs-string"><span class="hljs-string"><span class="hljs-string"><span class="hljs-string">"RRNe"</span></span></span></span>)] &lt;- <span class="hljs-number"><span class="hljs-number"><span class="hljs-number"><span class="hljs-number">1</span></span></span></span>
 
 full$Artery &lt;- as.factor(full$Artery)
 full$Feedr &lt;- as.factor(full$Feedr)
@@ -544,40 +553,40 @@ full$RRAn &lt;- as.factor(full$RRAn)
 full$RRNn &lt;- as.factor(full$RRNn)
 full$RRNe &lt;- as.factor(full$RRNe)
 
-full$Condition1 &lt;- <span class="hljs-literal"><span class="hljs-literal">NULL</span></span>    <span class="hljs-comment"><span class="hljs-comment">#I remove the Condition1 and Condition2 variables when I am done</span></span>
-full$Condition2 &lt;- <span class="hljs-literal"><span class="hljs-literal">NULL</span></span></code></pre>
+full$Condition1 &lt;- <span class="hljs-literal"><span class="hljs-literal"><span class="hljs-literal"><span class="hljs-literal">NULL</span></span></span></span>    <span class="hljs-comment"><span class="hljs-comment"><span class="hljs-comment"><span class="hljs-comment">#I remove the Condition1 and Condition2 variables when I am done</span></span></span></span>
+full$Condition2 &lt;- <span class="hljs-literal"><span class="hljs-literal"><span class="hljs-literal"><span class="hljs-literal">NULL</span></span></span></span></code></pre>
 <p>There is another set of variables that I expand out, Exterior1st and Exterior2nd. They function the same as Condition1 and Condition2, describing the exterior of the house.</p>
-<pre class="r"><code class="hljs">full$AsbShng &lt;- <span class="hljs-number"><span class="hljs-number">0</span></span>
-full$AsphShn &lt;- <span class="hljs-number"><span class="hljs-number">0</span></span>
-full$BrkComm &lt;- <span class="hljs-number"><span class="hljs-number">0</span></span>
-full$BrkFace &lt;- <span class="hljs-number"><span class="hljs-number">0</span></span>
-full$CBlock &lt;- <span class="hljs-number"><span class="hljs-number">0</span></span>
-full$CemntBd &lt;- <span class="hljs-number"><span class="hljs-number">0</span></span>
-full$HdBoard &lt;- <span class="hljs-number"><span class="hljs-number">0</span></span>
-full$ImStucc &lt;- <span class="hljs-number"><span class="hljs-number">0</span></span>
-full$MetalSd &lt;- <span class="hljs-number"><span class="hljs-number">0</span></span>
-full$Plywood &lt;- <span class="hljs-number"><span class="hljs-number">0</span></span>
-full$Stone &lt;- <span class="hljs-number"><span class="hljs-number">0</span></span>
-full$Stucco &lt;- <span class="hljs-number"><span class="hljs-number">0</span></span>
-full$VinylSd &lt;- <span class="hljs-number"><span class="hljs-number">0</span></span>
-full$WdSdng &lt;- <span class="hljs-number"><span class="hljs-number">0</span></span>
-full$WdShing &lt;- <span class="hljs-number"><span class="hljs-number">0</span></span>
+<pre class="r"><code class="hljs">full$AsbShng &lt;- <span class="hljs-number"><span class="hljs-number"><span class="hljs-number"><span class="hljs-number">0</span></span></span></span>
+full$AsphShn &lt;- <span class="hljs-number"><span class="hljs-number"><span class="hljs-number"><span class="hljs-number">0</span></span></span></span>
+full$BrkComm &lt;- <span class="hljs-number"><span class="hljs-number"><span class="hljs-number"><span class="hljs-number">0</span></span></span></span>
+full$BrkFace &lt;- <span class="hljs-number"><span class="hljs-number"><span class="hljs-number"><span class="hljs-number">0</span></span></span></span>
+full$CBlock &lt;- <span class="hljs-number"><span class="hljs-number"><span class="hljs-number"><span class="hljs-number">0</span></span></span></span>
+full$CemntBd &lt;- <span class="hljs-number"><span class="hljs-number"><span class="hljs-number"><span class="hljs-number">0</span></span></span></span>
+full$HdBoard &lt;- <span class="hljs-number"><span class="hljs-number"><span class="hljs-number"><span class="hljs-number">0</span></span></span></span>
+full$ImStucc &lt;- <span class="hljs-number"><span class="hljs-number"><span class="hljs-number"><span class="hljs-number">0</span></span></span></span>
+full$MetalSd &lt;- <span class="hljs-number"><span class="hljs-number"><span class="hljs-number"><span class="hljs-number">0</span></span></span></span>
+full$Plywood &lt;- <span class="hljs-number"><span class="hljs-number"><span class="hljs-number"><span class="hljs-number">0</span></span></span></span>
+full$Stone &lt;- <span class="hljs-number"><span class="hljs-number"><span class="hljs-number"><span class="hljs-number">0</span></span></span></span>
+full$Stucco &lt;- <span class="hljs-number"><span class="hljs-number"><span class="hljs-number"><span class="hljs-number">0</span></span></span></span>
+full$VinylSd &lt;- <span class="hljs-number"><span class="hljs-number"><span class="hljs-number"><span class="hljs-number">0</span></span></span></span>
+full$WdSdng &lt;- <span class="hljs-number"><span class="hljs-number"><span class="hljs-number"><span class="hljs-number">0</span></span></span></span>
+full$WdShing &lt;- <span class="hljs-number"><span class="hljs-number"><span class="hljs-number"><span class="hljs-number">0</span></span></span></span>
 
-full$AsbShng[which(full$Exterior1st == <span class="hljs-string"><span class="hljs-string">"AsbShng"</span></span> | full$Exterior2nd == <span class="hljs-string"><span class="hljs-string">"AsbShng"</span></span>)] &lt;- <span class="hljs-number"><span class="hljs-number">1</span></span>
-full$AsphShn[which(full$Exterior1st == <span class="hljs-string"><span class="hljs-string">"AsphShn"</span></span> | full$Exterior2nd == <span class="hljs-string"><span class="hljs-string">"AsphShn"</span></span>)] &lt;- <span class="hljs-number"><span class="hljs-number">1</span></span>
-full$BrkComm[which(full$Exterior1st == <span class="hljs-string"><span class="hljs-string">"BrkComm"</span></span> | full$Exterior2nd == <span class="hljs-string"><span class="hljs-string">"BrkComm"</span></span>)] &lt;- <span class="hljs-number"><span class="hljs-number">1</span></span>
-full$BrkFace[which(full$Exterior1st == <span class="hljs-string"><span class="hljs-string">"BrkFace"</span></span> | full$Exterior2nd == <span class="hljs-string"><span class="hljs-string">"BrkFace"</span></span>)] &lt;- <span class="hljs-number"><span class="hljs-number">1</span></span>
-full$CBlock[which(full$Exterior1st == <span class="hljs-string"><span class="hljs-string">"CBlock"</span></span> | full$Exterior2nd == <span class="hljs-string"><span class="hljs-string">"CBlock"</span></span>)] &lt;- <span class="hljs-number"><span class="hljs-number">1</span></span>
-full$CemntBd[which(full$Exterior1st == <span class="hljs-string"><span class="hljs-string">"CemntBd"</span></span> | full$Exterior2nd == <span class="hljs-string"><span class="hljs-string">"CemntBd"</span></span>)] &lt;- <span class="hljs-number"><span class="hljs-number">1</span></span>
-full$HdBoard[which(full$Exterior1st == <span class="hljs-string"><span class="hljs-string">"HdBoard"</span></span> | full$Exterior2nd == <span class="hljs-string"><span class="hljs-string">"HdBoard"</span></span>)] &lt;- <span class="hljs-number"><span class="hljs-number">1</span></span>
-full$ImStucc[which(full$Exterior1st == <span class="hljs-string"><span class="hljs-string">"ImStucc"</span></span> | full$Exterior2nd == <span class="hljs-string"><span class="hljs-string">"ImStucc"</span></span>)] &lt;- <span class="hljs-number"><span class="hljs-number">1</span></span>
-full$MetalSd[which(full$Exterior1st == <span class="hljs-string"><span class="hljs-string">"MetalSd"</span></span> | full$Exterior2nd == <span class="hljs-string"><span class="hljs-string">"MetalSd"</span></span>)] &lt;- <span class="hljs-number"><span class="hljs-number">1</span></span>
-full$Plywood[which(full$Exterior1st == <span class="hljs-string"><span class="hljs-string">"Plywood"</span></span> | full$Exterior2nd == <span class="hljs-string"><span class="hljs-string">"Plywood"</span></span>)] &lt;- <span class="hljs-number"><span class="hljs-number">1</span></span>
-full$Stone[which(full$Exterior1st == <span class="hljs-string"><span class="hljs-string">"Stone"</span></span> | full$Exterior2nd == <span class="hljs-string"><span class="hljs-string">"Stone"</span></span>)] &lt;- <span class="hljs-number"><span class="hljs-number">1</span></span>
-full$Stucco[which(full$Exterior1st == <span class="hljs-string"><span class="hljs-string">"Stucco"</span></span> | full$Exterior2nd == <span class="hljs-string"><span class="hljs-string">"Stucco"</span></span>)] &lt;- <span class="hljs-number"><span class="hljs-number">1</span></span>
-full$VinylSd[which(full$Exterior1st == <span class="hljs-string"><span class="hljs-string">"VinylSd"</span></span> | full$Exterior2nd == <span class="hljs-string"><span class="hljs-string">"VinylSd"</span></span>)] &lt;- <span class="hljs-number"><span class="hljs-number">1</span></span>
-full$WdSdng[which(full$Exterior1st == <span class="hljs-string"><span class="hljs-string">"Wd Sdng"</span></span> | full$Exterior2nd == <span class="hljs-string"><span class="hljs-string">"Wd Sdng"</span></span>)] &lt;- <span class="hljs-number"><span class="hljs-number">1</span></span>
-full$WdShing[which(full$Exterior1st == <span class="hljs-string"><span class="hljs-string">"WdShing"</span></span> | full$Exterior2nd == <span class="hljs-string"><span class="hljs-string">"WdShing"</span></span>)] &lt;- <span class="hljs-number"><span class="hljs-number">1</span></span>
+full$AsbShng[which(full$Exterior1st == <span class="hljs-string"><span class="hljs-string"><span class="hljs-string"><span class="hljs-string">"AsbShng"</span></span></span></span> | full$Exterior2nd == <span class="hljs-string"><span class="hljs-string"><span class="hljs-string"><span class="hljs-string">"AsbShng"</span></span></span></span>)] &lt;- <span class="hljs-number"><span class="hljs-number"><span class="hljs-number"><span class="hljs-number">1</span></span></span></span>
+full$AsphShn[which(full$Exterior1st == <span class="hljs-string"><span class="hljs-string"><span class="hljs-string"><span class="hljs-string">"AsphShn"</span></span></span></span> | full$Exterior2nd == <span class="hljs-string"><span class="hljs-string"><span class="hljs-string"><span class="hljs-string">"AsphShn"</span></span></span></span>)] &lt;- <span class="hljs-number"><span class="hljs-number"><span class="hljs-number"><span class="hljs-number">1</span></span></span></span>
+full$BrkComm[which(full$Exterior1st == <span class="hljs-string"><span class="hljs-string"><span class="hljs-string"><span class="hljs-string">"BrkComm"</span></span></span></span> | full$Exterior2nd == <span class="hljs-string"><span class="hljs-string"><span class="hljs-string"><span class="hljs-string">"BrkComm"</span></span></span></span>)] &lt;- <span class="hljs-number"><span class="hljs-number"><span class="hljs-number"><span class="hljs-number">1</span></span></span></span>
+full$BrkFace[which(full$Exterior1st == <span class="hljs-string"><span class="hljs-string"><span class="hljs-string"><span class="hljs-string">"BrkFace"</span></span></span></span> | full$Exterior2nd == <span class="hljs-string"><span class="hljs-string"><span class="hljs-string"><span class="hljs-string">"BrkFace"</span></span></span></span>)] &lt;- <span class="hljs-number"><span class="hljs-number"><span class="hljs-number"><span class="hljs-number">1</span></span></span></span>
+full$CBlock[which(full$Exterior1st == <span class="hljs-string"><span class="hljs-string"><span class="hljs-string"><span class="hljs-string">"CBlock"</span></span></span></span> | full$Exterior2nd == <span class="hljs-string"><span class="hljs-string"><span class="hljs-string"><span class="hljs-string">"CBlock"</span></span></span></span>)] &lt;- <span class="hljs-number"><span class="hljs-number"><span class="hljs-number"><span class="hljs-number">1</span></span></span></span>
+full$CemntBd[which(full$Exterior1st == <span class="hljs-string"><span class="hljs-string"><span class="hljs-string"><span class="hljs-string">"CemntBd"</span></span></span></span> | full$Exterior2nd == <span class="hljs-string"><span class="hljs-string"><span class="hljs-string"><span class="hljs-string">"CemntBd"</span></span></span></span>)] &lt;- <span class="hljs-number"><span class="hljs-number"><span class="hljs-number"><span class="hljs-number">1</span></span></span></span>
+full$HdBoard[which(full$Exterior1st == <span class="hljs-string"><span class="hljs-string"><span class="hljs-string"><span class="hljs-string">"HdBoard"</span></span></span></span> | full$Exterior2nd == <span class="hljs-string"><span class="hljs-string"><span class="hljs-string"><span class="hljs-string">"HdBoard"</span></span></span></span>)] &lt;- <span class="hljs-number"><span class="hljs-number"><span class="hljs-number"><span class="hljs-number">1</span></span></span></span>
+full$ImStucc[which(full$Exterior1st == <span class="hljs-string"><span class="hljs-string"><span class="hljs-string"><span class="hljs-string">"ImStucc"</span></span></span></span> | full$Exterior2nd == <span class="hljs-string"><span class="hljs-string"><span class="hljs-string"><span class="hljs-string">"ImStucc"</span></span></span></span>)] &lt;- <span class="hljs-number"><span class="hljs-number"><span class="hljs-number"><span class="hljs-number">1</span></span></span></span>
+full$MetalSd[which(full$Exterior1st == <span class="hljs-string"><span class="hljs-string"><span class="hljs-string"><span class="hljs-string">"MetalSd"</span></span></span></span> | full$Exterior2nd == <span class="hljs-string"><span class="hljs-string"><span class="hljs-string"><span class="hljs-string">"MetalSd"</span></span></span></span>)] &lt;- <span class="hljs-number"><span class="hljs-number"><span class="hljs-number"><span class="hljs-number">1</span></span></span></span>
+full$Plywood[which(full$Exterior1st == <span class="hljs-string"><span class="hljs-string"><span class="hljs-string"><span class="hljs-string">"Plywood"</span></span></span></span> | full$Exterior2nd == <span class="hljs-string"><span class="hljs-string"><span class="hljs-string"><span class="hljs-string">"Plywood"</span></span></span></span>)] &lt;- <span class="hljs-number"><span class="hljs-number"><span class="hljs-number"><span class="hljs-number">1</span></span></span></span>
+full$Stone[which(full$Exterior1st == <span class="hljs-string"><span class="hljs-string"><span class="hljs-string"><span class="hljs-string">"Stone"</span></span></span></span> | full$Exterior2nd == <span class="hljs-string"><span class="hljs-string"><span class="hljs-string"><span class="hljs-string">"Stone"</span></span></span></span>)] &lt;- <span class="hljs-number"><span class="hljs-number"><span class="hljs-number"><span class="hljs-number">1</span></span></span></span>
+full$Stucco[which(full$Exterior1st == <span class="hljs-string"><span class="hljs-string"><span class="hljs-string"><span class="hljs-string">"Stucco"</span></span></span></span> | full$Exterior2nd == <span class="hljs-string"><span class="hljs-string"><span class="hljs-string"><span class="hljs-string">"Stucco"</span></span></span></span>)] &lt;- <span class="hljs-number"><span class="hljs-number"><span class="hljs-number"><span class="hljs-number">1</span></span></span></span>
+full$VinylSd[which(full$Exterior1st == <span class="hljs-string"><span class="hljs-string"><span class="hljs-string"><span class="hljs-string">"VinylSd"</span></span></span></span> | full$Exterior2nd == <span class="hljs-string"><span class="hljs-string"><span class="hljs-string"><span class="hljs-string">"VinylSd"</span></span></span></span>)] &lt;- <span class="hljs-number"><span class="hljs-number"><span class="hljs-number"><span class="hljs-number">1</span></span></span></span>
+full$WdSdng[which(full$Exterior1st == <span class="hljs-string"><span class="hljs-string"><span class="hljs-string"><span class="hljs-string">"Wd Sdng"</span></span></span></span> | full$Exterior2nd == <span class="hljs-string"><span class="hljs-string"><span class="hljs-string"><span class="hljs-string">"Wd Sdng"</span></span></span></span>)] &lt;- <span class="hljs-number"><span class="hljs-number"><span class="hljs-number"><span class="hljs-number">1</span></span></span></span>
+full$WdShing[which(full$Exterior1st == <span class="hljs-string"><span class="hljs-string"><span class="hljs-string"><span class="hljs-string">"WdShing"</span></span></span></span> | full$Exterior2nd == <span class="hljs-string"><span class="hljs-string"><span class="hljs-string"><span class="hljs-string">"WdShing"</span></span></span></span>)] &lt;- <span class="hljs-number"><span class="hljs-number"><span class="hljs-number"><span class="hljs-number">1</span></span></span></span>
 
 full$AsbShng &lt;- as.factor(full$AsbShng)
 full$AsphShn &lt;- as.factor(full$AsphShn)
@@ -595,58 +604,58 @@ full$VinylSd &lt;- as.factor(full$VinylSd)
 full$WdSdng &lt;- as.factor(full$WdSdng)
 full$WdShing &lt;- as.factor(full$WdShing)
 
-full$Exterior1st &lt;- <span class="hljs-literal"><span class="hljs-literal">NULL</span></span>
-full$Exterior2nd &lt;- <span class="hljs-literal"><span class="hljs-literal">NULL</span></span></code></pre>
+full$Exterior1st &lt;- <span class="hljs-literal"><span class="hljs-literal"><span class="hljs-literal"><span class="hljs-literal">NULL</span></span></span></span>
+full$Exterior2nd &lt;- <span class="hljs-literal"><span class="hljs-literal"><span class="hljs-literal"><span class="hljs-literal">NULL</span></span></span></span></code></pre>
 <p>The data provides square footage for the first and second floors of the house individually, but it does not provide a total square footage for the house. This is one of the most important numbers looked at when selling a house. I add the 1st and 2nd floor square footages together.</p>
 <pre class="r"><code class="hljs">full$TotalSF &lt;- full$X1stFlrSF + full$X2ndFlrSF</code></pre>
 <p>In addition to 1st and 2nd floor house square footage, many basements are extensions of the house and have bedrooms and bathrooms. The variables BsmtFinType1 and BsmtFinType2 describe how well finished the basement is. GLQ, ALG, and BLQ each stand for Good Living Quarters, Average Living Quarters, and Below Average Living Quarters. The other basement finishes can be rated as Low Quality, Average Rec Room, or unfinished. If the basement recieved a Living Quarters rating, I added its square footage to the house in the variable ‘TotalSFwBsmt’.</p>
 <pre class="r"><code class="hljs">full$TotalSFwBsmt &lt;- full$TotalSF
-<span class="hljs-keyword"><span class="hljs-keyword">for</span></span>(j <span class="hljs-keyword"><span class="hljs-keyword">in</span></span> <span class="hljs-number"><span class="hljs-number">1</span></span>:nrow(full)){
-  <span class="hljs-keyword"><span class="hljs-keyword">if</span></span>(full$BsmtFinType1[j] == <span class="hljs-string"><span class="hljs-string">"GLQ"</span></span> | full$BsmtFinType1[j] == <span class="hljs-string"><span class="hljs-string">"ALQ"</span></span> | full$BsmtFinType1[j] == <span class="hljs-string"><span class="hljs-string">"BLQ"</span></span>)
+<span class="hljs-keyword"><span class="hljs-keyword"><span class="hljs-keyword"><span class="hljs-keyword">for</span></span></span></span>(j <span class="hljs-keyword"><span class="hljs-keyword"><span class="hljs-keyword"><span class="hljs-keyword">in</span></span></span></span> <span class="hljs-number"><span class="hljs-number"><span class="hljs-number"><span class="hljs-number">1</span></span></span></span>:nrow(full)){
+  <span class="hljs-keyword"><span class="hljs-keyword"><span class="hljs-keyword"><span class="hljs-keyword">if</span></span></span></span>(full$BsmtFinType1[j] == <span class="hljs-string"><span class="hljs-string"><span class="hljs-string"><span class="hljs-string">"GLQ"</span></span></span></span> | full$BsmtFinType1[j] == <span class="hljs-string"><span class="hljs-string"><span class="hljs-string"><span class="hljs-string">"ALQ"</span></span></span></span> | full$BsmtFinType1[j] == <span class="hljs-string"><span class="hljs-string"><span class="hljs-string"><span class="hljs-string">"BLQ"</span></span></span></span>)
   {
     full$TotalSFwBsmt[j] &lt;- full$TotalSF[j] + full$BsmtFinSF1[j]
   }
-  <span class="hljs-keyword"><span class="hljs-keyword">if</span></span>(full$BsmtFinType2[j] == <span class="hljs-string"><span class="hljs-string">"GLQ"</span></span> | full$BsmtFinType2[j] == <span class="hljs-string"><span class="hljs-string">"ALQ"</span></span> | full$BsmtFinType2[j] == <span class="hljs-string"><span class="hljs-string">"BLQ"</span></span>)
+  <span class="hljs-keyword"><span class="hljs-keyword"><span class="hljs-keyword"><span class="hljs-keyword">if</span></span></span></span>(full$BsmtFinType2[j] == <span class="hljs-string"><span class="hljs-string"><span class="hljs-string"><span class="hljs-string">"GLQ"</span></span></span></span> | full$BsmtFinType2[j] == <span class="hljs-string"><span class="hljs-string"><span class="hljs-string"><span class="hljs-string">"ALQ"</span></span></span></span> | full$BsmtFinType2[j] == <span class="hljs-string"><span class="hljs-string"><span class="hljs-string"><span class="hljs-string">"BLQ"</span></span></span></span>)
   {
     full$TotalSFwBsmt[j] &lt;- full$TotalSF[j] + full$BsmtFinSF2[j]
   }
-  <span class="hljs-keyword"><span class="hljs-keyword">if</span></span>((full$BsmtFinType2[j] == <span class="hljs-string"><span class="hljs-string">"GLQ"</span></span> | full$BsmtFinType2[j] == <span class="hljs-string"><span class="hljs-string">"ALQ"</span></span> | full$BsmtFinType2[j] == <span class="hljs-string"><span class="hljs-string">"BLQ"</span></span>)   &amp;(full$BsmtFinType1[j] == <span class="hljs-string"><span class="hljs-string">"GLQ"</span></span> | full$BsmtFinType1[j] == <span class="hljs-string"><span class="hljs-string">"ALQ"</span></span> | full$BsmtFinType1[j] == <span class="hljs-string"><span class="hljs-string">"BLQ"</span></span>))
+  <span class="hljs-keyword"><span class="hljs-keyword"><span class="hljs-keyword"><span class="hljs-keyword">if</span></span></span></span>((full$BsmtFinType2[j] == <span class="hljs-string"><span class="hljs-string"><span class="hljs-string"><span class="hljs-string">"GLQ"</span></span></span></span> | full$BsmtFinType2[j] == <span class="hljs-string"><span class="hljs-string"><span class="hljs-string"><span class="hljs-string">"ALQ"</span></span></span></span> | full$BsmtFinType2[j] == <span class="hljs-string"><span class="hljs-string"><span class="hljs-string"><span class="hljs-string">"BLQ"</span></span></span></span>)   &amp;(full$BsmtFinType1[j] == <span class="hljs-string"><span class="hljs-string"><span class="hljs-string"><span class="hljs-string">"GLQ"</span></span></span></span> | full$BsmtFinType1[j] == <span class="hljs-string"><span class="hljs-string"><span class="hljs-string"><span class="hljs-string">"ALQ"</span></span></span></span> | full$BsmtFinType1[j] == <span class="hljs-string"><span class="hljs-string"><span class="hljs-string"><span class="hljs-string">"BLQ"</span></span></span></span>))
   {
       full$TotalSFwBsmt[j] &lt;- full$TotalSF[j] + full$BsmtFinSF2[j] + full$BsmtFinSF1[j]
   }
 }</code></pre>
 <p>For these basements that were rated as living quarters, I added their bathrooms to the total bathroom count.</p>
 <pre class="r"><code class="hljs">full$TotalFullBath &lt;- full$FullBath
-<span class="hljs-keyword"><span class="hljs-keyword">for</span></span>(j <span class="hljs-keyword"><span class="hljs-keyword">in</span></span> <span class="hljs-number"><span class="hljs-number">1</span></span>:nrow(full)){
-  <span class="hljs-keyword"><span class="hljs-keyword">if</span></span>(full$BsmtFinType1[j] == <span class="hljs-string"><span class="hljs-string">"GLQ"</span></span> | full$BsmtFinType1[j] == <span class="hljs-string"><span class="hljs-string">"ALQ"</span></span>  | full$BsmtFinType1[j] == <span class="hljs-string"><span class="hljs-string">"BLQ"</span></span> | full$BsmtFinType2[j] == <span class="hljs-string"><span class="hljs-string">"GLQ"</span></span> | full$BsmtFinType2[j] == <span class="hljs-string"><span class="hljs-string">"ALQ"</span></span> | full$BsmtFinType2[j] == <span class="hljs-string"><span class="hljs-string">"BLQ"</span></span>)
+<span class="hljs-keyword"><span class="hljs-keyword"><span class="hljs-keyword"><span class="hljs-keyword">for</span></span></span></span>(j <span class="hljs-keyword"><span class="hljs-keyword"><span class="hljs-keyword"><span class="hljs-keyword">in</span></span></span></span> <span class="hljs-number"><span class="hljs-number"><span class="hljs-number"><span class="hljs-number">1</span></span></span></span>:nrow(full)){
+  <span class="hljs-keyword"><span class="hljs-keyword"><span class="hljs-keyword"><span class="hljs-keyword">if</span></span></span></span>(full$BsmtFinType1[j] == <span class="hljs-string"><span class="hljs-string"><span class="hljs-string"><span class="hljs-string">"GLQ"</span></span></span></span> | full$BsmtFinType1[j] == <span class="hljs-string"><span class="hljs-string"><span class="hljs-string"><span class="hljs-string">"ALQ"</span></span></span></span>  | full$BsmtFinType1[j] == <span class="hljs-string"><span class="hljs-string"><span class="hljs-string"><span class="hljs-string">"BLQ"</span></span></span></span> | full$BsmtFinType2[j] == <span class="hljs-string"><span class="hljs-string"><span class="hljs-string"><span class="hljs-string">"GLQ"</span></span></span></span> | full$BsmtFinType2[j] == <span class="hljs-string"><span class="hljs-string"><span class="hljs-string"><span class="hljs-string">"ALQ"</span></span></span></span> | full$BsmtFinType2[j] == <span class="hljs-string"><span class="hljs-string"><span class="hljs-string"><span class="hljs-string">"BLQ"</span></span></span></span>)
   {
       full$TotalFullBath[j] &lt;- full$FullBath[j] + full$BsmtFullBath[j]
   }
 }
 
 full$TotalHalfBath &lt;- full$HalfBath
-<span class="hljs-keyword"><span class="hljs-keyword">for</span></span>(j <span class="hljs-keyword"><span class="hljs-keyword">in</span></span> <span class="hljs-number"><span class="hljs-number">1</span></span>:nrow(full)){
-  <span class="hljs-keyword"><span class="hljs-keyword">if</span></span>(full$BsmtFinType1[j] == <span class="hljs-string"><span class="hljs-string">"GLQ"</span></span> | full$BsmtFinType1[j] == <span class="hljs-string"><span class="hljs-string">"ALQ"</span></span> | full$BsmtFinType1[j] == <span class="hljs-string"><span class="hljs-string">"BLQ"</span></span> | full$BsmtFinType2[j] == <span class="hljs-string"><span class="hljs-string">"GLQ"</span></span> | full$BsmtFinType2[j] == <span class="hljs-string"><span class="hljs-string">"ALQ"</span></span> | full$BsmtFinType2[j] == <span class="hljs-string"><span class="hljs-string">"BLQ"</span></span>)
+<span class="hljs-keyword"><span class="hljs-keyword"><span class="hljs-keyword"><span class="hljs-keyword">for</span></span></span></span>(j <span class="hljs-keyword"><span class="hljs-keyword"><span class="hljs-keyword"><span class="hljs-keyword">in</span></span></span></span> <span class="hljs-number"><span class="hljs-number"><span class="hljs-number"><span class="hljs-number">1</span></span></span></span>:nrow(full)){
+  <span class="hljs-keyword"><span class="hljs-keyword"><span class="hljs-keyword"><span class="hljs-keyword">if</span></span></span></span>(full$BsmtFinType1[j] == <span class="hljs-string"><span class="hljs-string"><span class="hljs-string"><span class="hljs-string">"GLQ"</span></span></span></span> | full$BsmtFinType1[j] == <span class="hljs-string"><span class="hljs-string"><span class="hljs-string"><span class="hljs-string">"ALQ"</span></span></span></span> | full$BsmtFinType1[j] == <span class="hljs-string"><span class="hljs-string"><span class="hljs-string"><span class="hljs-string">"BLQ"</span></span></span></span> | full$BsmtFinType2[j] == <span class="hljs-string"><span class="hljs-string"><span class="hljs-string"><span class="hljs-string">"GLQ"</span></span></span></span> | full$BsmtFinType2[j] == <span class="hljs-string"><span class="hljs-string"><span class="hljs-string"><span class="hljs-string">"ALQ"</span></span></span></span> | full$BsmtFinType2[j] == <span class="hljs-string"><span class="hljs-string"><span class="hljs-string"><span class="hljs-string">"BLQ"</span></span></span></span>)
   {
      full$TotalHalfBath[j] &lt;- full$HalfBath[j] + full$BsmtHalfBath[j]
   }
 }</code></pre>
 <p>To perform the analysis, I need to split my data frame ‘full’ back into the original training and testing sets provided by Kaggle. After I do that, my training set needs to be split into a training set and a testing set for analysis. The new testing set will be used to check the accuracy of my models.</p>
-<pre class="r"><code class="hljs">house_train &lt;- subset(full, Id &lt; <span class="hljs-number"><span class="hljs-number">1461</span></span>)
-house_test &lt;- subset(full, Id &gt; <span class="hljs-number"><span class="hljs-number">1460</span></span>)
-house_train$Id &lt;- <span class="hljs-literal"><span class="hljs-literal">NULL</span></span>
-house_test$SalePrice &lt;- <span class="hljs-literal"><span class="hljs-literal">NULL</span></span>
+<pre class="r"><code class="hljs">house_train &lt;- subset(full, Id &lt; <span class="hljs-number"><span class="hljs-number"><span class="hljs-number"><span class="hljs-number">1461</span></span></span></span>)
+house_test &lt;- subset(full, Id &gt; <span class="hljs-number"><span class="hljs-number"><span class="hljs-number"><span class="hljs-number">1460</span></span></span></span>)
+house_train$Id &lt;- <span class="hljs-literal"><span class="hljs-literal"><span class="hljs-literal"><span class="hljs-literal">NULL</span></span></span></span>
+house_test$SalePrice &lt;- <span class="hljs-literal"><span class="hljs-literal"><span class="hljs-literal"><span class="hljs-literal">NULL</span></span></span></span>
 
-<span class="hljs-keyword"><span class="hljs-keyword">library</span></span>(caTools)</code></pre>
-<pre class="r"><code class="hljs">set.seed(<span class="hljs-number"><span class="hljs-number">71</span></span>)
-split &lt;- sample.split(house_train$SalePrice, SplitRatio = <span class="hljs-number"><span class="hljs-number">.7</span></span>)
-train &lt;- subset(house_train, split == <span class="hljs-literal"><span class="hljs-literal">TRUE</span></span>)
-test &lt;- subset(house_train, split == <span class="hljs-literal"><span class="hljs-literal">FALSE</span></span>)</code></pre>
+<span class="hljs-keyword"><span class="hljs-keyword"><span class="hljs-keyword"><span class="hljs-keyword">library</span></span></span></span>(caTools)</code></pre>
+<pre class="r"><code class="hljs">set.seed(<span class="hljs-number"><span class="hljs-number"><span class="hljs-number"><span class="hljs-number">71</span></span></span></span>)
+split &lt;- sample.split(house_train$SalePrice, SplitRatio = <span class="hljs-number"><span class="hljs-number"><span class="hljs-number"><span class="hljs-number">.7</span></span></span></span>)
+train &lt;- subset(house_train, split == <span class="hljs-literal"><span class="hljs-literal"><span class="hljs-literal"><span class="hljs-literal">TRUE</span></span></span></span>)
+test &lt;- subset(house_train, split == <span class="hljs-literal"><span class="hljs-literal"><span class="hljs-literal"><span class="hljs-literal">FALSE</span></span></span></span>)</code></pre>
 <p>My plan to predict the sale price of the houses is to create three models that make predictions and take the average of the three model’s predictions. The three models I will use are support vector machines, logistic regression, and random forests. First I will make a random forest. R’s randomForest package is capable of providing mean increase in squared error for each variable. I will use this information to assist with feature selection.</p>
-<pre class="r"><code class="hljs"><span class="hljs-keyword"><span class="hljs-keyword">library</span></span>(randomForest)</code></pre>
-<pre class="r"><code class="hljs">set.seed(<span class="hljs-number"><span class="hljs-number">25</span></span>)
-forest1 &lt;- randomForest(SalePrice ~ ., data = train, ntree = <span class="hljs-number"><span class="hljs-number">3000</span></span>, importance = <span class="hljs-literal"><span class="hljs-literal">TRUE</span></span>)
-sort(forest1$importance[,<span class="hljs-number"><span class="hljs-number">1</span></span>], decreasing = <span class="hljs-literal"><span class="hljs-literal">TRUE</span></span>)</code></pre>
+<pre class="r"><code class="hljs"><span class="hljs-keyword"><span class="hljs-keyword"><span class="hljs-keyword"><span class="hljs-keyword">library</span></span></span></span>(randomForest)</code></pre>
+<pre class="r"><code class="hljs">set.seed(<span class="hljs-number"><span class="hljs-number"><span class="hljs-number"><span class="hljs-number">25</span></span></span></span>)
+forest1 &lt;- randomForest(SalePrice ~ ., data = train, ntree = <span class="hljs-number"><span class="hljs-number"><span class="hljs-number"><span class="hljs-number">3000</span></span></span></span>, importance = <span class="hljs-literal"><span class="hljs-literal"><span class="hljs-literal"><span class="hljs-literal">TRUE</span></span></span></span>)
+sort(forest1$importance[,<span class="hljs-number"><span class="hljs-number"><span class="hljs-number"><span class="hljs-number">1</span></span></span></span>], decreasing = <span class="hljs-literal"><span class="hljs-literal"><span class="hljs-literal"><span class="hljs-literal">TRUE</span></span></span></span>)</code></pre>
 <pre><code class="hljs">##   OverallQual  TotalSFwBsmt  Neighborhood       TotalSF     GrLivArea
 ##  1.154320e+09  9.077294e+08  7.350561e+08  4.383173e+08  3.710613e+08
 ##    GarageCars     ExterQual   TotalBsmtSF     YearBuilt     X1stFlrSF
@@ -688,29 +697,29 @@ sort(forest1$importance[,<span class="hljs-number"><span class="hljs-number">1</
 ##      RoofMatl        MoSold     LotConfig
 ## -2.094420e+06 -2.547111e+06 -2.621197e+06</code></pre>
 <p>Using the information provided in the table and using guess and check, I make the best model that I can. The variables at the top of the table are more important and I am more likely to keep those variables.</p>
-<pre class="r"><code class="hljs">set.seed(<span class="hljs-number"><span class="hljs-number">25</span></span>)
+<pre class="r"><code class="hljs">set.seed(<span class="hljs-number"><span class="hljs-number"><span class="hljs-number"><span class="hljs-number">25</span></span></span></span>)
 forest1 &lt;- randomForest(SalePrice ~ OverallQual + Neighborhood + TotalSF + TotalBsmtSF + YearBuilt
                        + LotArea + OverallCond + KitchenQual + GarageCars + BsmtQual + ExterQual
                        + YearRemodAdd + BsmtExposure + Fireplaces + CentralAir + BrkFace
                        + LotConfig + HalfBath + BsmtFullBath + BsmtHalfBath + BsmtUnfSF
                        + KitchenAbvGr + TotalHalfBath,
-                       data = train, ntree = <span class="hljs-number"><span class="hljs-number">3000</span></span>, importance = <span class="hljs-literal"><span class="hljs-literal">TRUE</span></span>)
+                       data = train, ntree = <span class="hljs-number"><span class="hljs-number"><span class="hljs-number"><span class="hljs-number">3000</span></span></span></span>, importance = <span class="hljs-literal"><span class="hljs-literal"><span class="hljs-literal"><span class="hljs-literal">TRUE</span></span></span></span>)
 
 pred1 &lt;- predict(forest1, newdata = test)
-SSE &lt;- sum((test$SalePrice - pred1)^<span class="hljs-number"><span class="hljs-number">2</span></span>)
+SSE &lt;- sum((test$SalePrice - pred1)^<span class="hljs-number"><span class="hljs-number"><span class="hljs-number"><span class="hljs-number">2</span></span></span></span>)
 sqrt(SSE/nrow(test))</code></pre>
 <pre><code class="hljs">## [1] 18459.67</code></pre>
 <p>Next I make the support vector machine model. I use the information in the variable importance table to help select the most impactful variables and come up with the following model.</p>
-<pre class="r"><code class="hljs"><span class="hljs-keyword"><span class="hljs-keyword">library</span></span>(<span class="hljs-string"><span class="hljs-string">"e1071"</span></span>)</code></pre>
+<pre class="r"><code class="hljs"><span class="hljs-keyword"><span class="hljs-keyword"><span class="hljs-keyword"><span class="hljs-keyword">library</span></span></span></span>(<span class="hljs-string"><span class="hljs-string"><span class="hljs-string"><span class="hljs-string">"e1071"</span></span></span></span>)</code></pre>
 <pre class="r"><code class="hljs">svm1 &lt;- svm(SalePrice ~ OverallQual + Neighborhood + YearBuilt + GarageArea + GarageType + MSZoning
            + LotArea + OverallCond + KitchenQual + GarageCars + BsmtQual + ExterQual + Functional
            + YearRemodAdd + BsmtExposure + Fireplaces + BrkFace + CentralAir + HouseStyle + HdBoard
            + LotConfig + HalfBath + BsmtFullBath + BsmtHalfBath + BsmtUnfSF + EnclosedPorch
-           + KitchenAbvGr + TotalHalfBath + TotalSF + TotalBsmtSF + RoofStyle, data = house_train, kernal = <span class="hljs-string"><span class="hljs-string">"linear"</span></span>)
+           + KitchenAbvGr + TotalHalfBath + TotalSF + TotalBsmtSF + RoofStyle, data = house_train, kernal = <span class="hljs-string"><span class="hljs-string"><span class="hljs-string"><span class="hljs-string">"linear"</span></span></span></span>)
 
 pred1 &lt;- predict(svm1, newdata = test)
-SSE &lt;- sum((pred1 - test$SalePrice)^<span class="hljs-number"><span class="hljs-number">2</span></span>)
-SSElog &lt;- log(SSE, <span class="hljs-number"><span class="hljs-number">10</span></span>)</code></pre>
+SSE &lt;- sum((pred1 - test$SalePrice)^<span class="hljs-number"><span class="hljs-number"><span class="hljs-number"><span class="hljs-number">2</span></span></span></span>)
+SSElog &lt;- log(SSE, <span class="hljs-number"><span class="hljs-number"><span class="hljs-number"><span class="hljs-number">10</span></span></span></span>)</code></pre>
 <p>To select the best variables for my logistic regression model, I make a model using all of the variables and check the summary to find the most important variables.</p>
 <pre class="r"><code class="hljs">lm1 &lt;- lm(SalePrice ~ ., data = house_train)
 summary(lm1)</code></pre>
@@ -952,21 +961,21 @@ summary(lm1)</code></pre>
          + KitchenAbvGr + TotalBsmtSF + GarageCars, data = train)
 
 pred1 &lt;- predict(lm1, newdata = test)</code></pre>
-<pre class="r"><code class="hljs">SSE &lt;- sum((pred1 - test$SalePrice)^<span class="hljs-number"><span class="hljs-number">2</span></span>)
+<pre class="r"><code class="hljs">SSE &lt;- sum((pred1 - test$SalePrice)^<span class="hljs-number"><span class="hljs-number"><span class="hljs-number"><span class="hljs-number">2</span></span></span></span>)
 sqrt(SSE/nrow(test))</code></pre>
 <pre><code class="hljs">## [1] 23759.45</code></pre>
 <p>Now that all three models are created, I make predictions on the test set that Kaggle provided. I make my predictions using each model and average the predictions made by the three models.</p>
-<pre class="r"><code class="hljs">house_test$SalePrice &lt;- (predict(forest1, newdata = house_test) + predict(svm1, newdata = house_test) + predict(lm1, newdata = house_test))/<span class="hljs-number"><span class="hljs-number">3</span></span></code></pre>
+<pre class="r"><code class="hljs">house_test$SalePrice &lt;- (predict(forest1, newdata = house_test) + predict(svm1, newdata = house_test) + predict(lm1, newdata = house_test))/<span class="hljs-number"><span class="hljs-number"><span class="hljs-number"><span class="hljs-number">3</span></span></span></span></code></pre>
 <p>Finally, I create the submission file to submit to Kaggle.</p>
 <pre class="r"><code class="hljs">Submission &lt;- data.frame(house_test$Id, house_test$SalePrice)
 Submission$Id &lt;- Submission$house_test.Id
 Submission$SalePrice &lt;- Submission$house_test.SalePrice
-Submission$house_test.Id &lt;- <span class="hljs-literal"><span class="hljs-literal">NULL</span></span>
-Submission$house_test.SalePrice &lt;- <span class="hljs-literal"><span class="hljs-literal">NULL</span></span>
+Submission$house_test.Id &lt;- <span class="hljs-literal"><span class="hljs-literal"><span class="hljs-literal"><span class="hljs-literal">NULL</span></span></span></span>
+Submission$house_test.SalePrice &lt;- <span class="hljs-literal"><span class="hljs-literal"><span class="hljs-literal"><span class="hljs-literal">NULL</span></span></span></span>
 
 
-setwd(<span class="hljs-string"><span class="hljs-string">"H:/Google Drive/Stats Projects/Data Sets"</span></span>)
-write.csv(Submission, <span class="hljs-string"><span class="hljs-string">"Kaggle_House_Submission.csv"</span></span>, row.names = <span class="hljs-literal"><span class="hljs-literal">FALSE</span></span>)</code></pre>
+setwd(<span class="hljs-string"><span class="hljs-string"><span class="hljs-string"><span class="hljs-string">"H:/Google Drive/Stats Projects/Data Sets"</span></span></span></span>)
+write.csv(Submission, <span class="hljs-string"><span class="hljs-string"><span class="hljs-string"><span class="hljs-string">"Kaggle_House_Submission.csv"</span></span></span></span>, row.names = <span class="hljs-literal"><span class="hljs-literal"><span class="hljs-literal"><span class="hljs-literal">FALSE</span></span></span></span>)</code></pre>
 <p>As of the time of writing this, my predictions were good for top 25% on the Kaggle leaderboard.</p>
 </div>
 
@@ -997,6 +1006,7 @@ $(document).ready(function () {
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>
+
 
 
 
