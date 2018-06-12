@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <!-- saved from url=(0087)file:///C:/Users/Alex/Desktop/jgarcia102.github.io/_includes/Kaggle_House_Writeup2.html -->
 <html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
@@ -427,39 +426,39 @@ full &lt;- bind_rows(house_train, house_test)                 <span class="hljs-
 <pre class="r"><code class="hljs">nrow(full)</code></pre>
 <pre><code class="hljs">## [1] 2919</code></pre>
 <pre class="r"><code class="hljs">sort(sapply(full, <span class="hljs-keyword"><span class="hljs-keyword">function</span></span>(x) { sum(is.na(x)) }), decreasing=<span class="hljs-literal"><span class="hljs-literal">TRUE</span></span>)</code></pre>
-<pre><code class="hljs">##        PoolQC   MiscFeature         Alley         Fence     SalePrice 
-##          2909          2814          2721          2348          1459 
-##   FireplaceQu   LotFrontage   GarageYrBlt  GarageFinish    GarageQual 
-##          1420           486           159           159           159 
-##    GarageCond    GarageType      BsmtCond  BsmtExposure      BsmtQual 
-##           159           157            82            82            81 
-##  BsmtFinType2  BsmtFinType1    MasVnrType    MasVnrArea      MSZoning 
-##            80            79            24            23             4 
-##     Utilities  BsmtFullBath  BsmtHalfBath    Functional   Exterior1st 
-##             2             2             2             2             1 
-##   Exterior2nd    BsmtFinSF1    BsmtFinSF2     BsmtUnfSF   TotalBsmtSF 
-##             1             1             1             1             1 
-##    Electrical   KitchenQual    GarageCars    GarageArea      SaleType 
-##             1             1             1             1             1 
-##            Id    MSSubClass       LotArea        Street      LotShape 
-##             0             0             0             0             0 
-##   LandContour     LotConfig     LandSlope  Neighborhood    Condition1 
-##             0             0             0             0             0 
-##    Condition2      BldgType    HouseStyle   OverallQual   OverallCond 
-##             0             0             0             0             0 
-##     YearBuilt  YearRemodAdd     RoofStyle      RoofMatl     ExterQual 
-##             0             0             0             0             0 
-##     ExterCond    Foundation       Heating     HeatingQC    CentralAir 
-##             0             0             0             0             0 
-##     X1stFlrSF     X2ndFlrSF  LowQualFinSF     GrLivArea      FullBath 
-##             0             0             0             0             0 
-##      HalfBath  BedroomAbvGr  KitchenAbvGr  TotRmsAbvGrd    Fireplaces 
-##             0             0             0             0             0 
-##    PavedDrive    WoodDeckSF   OpenPorchSF EnclosedPorch    X3SsnPorch 
-##             0             0             0             0             0 
-##   ScreenPorch      PoolArea       MiscVal        MoSold        YrSold 
-##             0             0             0             0             0 
-## SaleCondition 
+<pre><code class="hljs">##        PoolQC   MiscFeature         Alley         Fence     SalePrice
+##          2909          2814          2721          2348          1459
+##   FireplaceQu   LotFrontage   GarageYrBlt  GarageFinish    GarageQual
+##          1420           486           159           159           159
+##    GarageCond    GarageType      BsmtCond  BsmtExposure      BsmtQual
+##           159           157            82            82            81
+##  BsmtFinType2  BsmtFinType1    MasVnrType    MasVnrArea      MSZoning
+##            80            79            24            23             4
+##     Utilities  BsmtFullBath  BsmtHalfBath    Functional   Exterior1st
+##             2             2             2             2             1
+##   Exterior2nd    BsmtFinSF1    BsmtFinSF2     BsmtUnfSF   TotalBsmtSF
+##             1             1             1             1             1
+##    Electrical   KitchenQual    GarageCars    GarageArea      SaleType
+##             1             1             1             1             1
+##            Id    MSSubClass       LotArea        Street      LotShape
+##             0             0             0             0             0
+##   LandContour     LotConfig     LandSlope  Neighborhood    Condition1
+##             0             0             0             0             0
+##    Condition2      BldgType    HouseStyle   OverallQual   OverallCond
+##             0             0             0             0             0
+##     YearBuilt  YearRemodAdd     RoofStyle      RoofMatl     ExterQual
+##             0             0             0             0             0
+##     ExterCond    Foundation       Heating     HeatingQC    CentralAir
+##             0             0             0             0             0
+##     X1stFlrSF     X2ndFlrSF  LowQualFinSF     GrLivArea      FullBath
+##             0             0             0             0             0
+##      HalfBath  BedroomAbvGr  KitchenAbvGr  TotRmsAbvGrd    Fireplaces
+##             0             0             0             0             0
+##    PavedDrive    WoodDeckSF   OpenPorchSF EnclosedPorch    X3SsnPorch
+##             0             0             0             0             0
+##   ScreenPorch      PoolArea       MiscVal        MoSold        YrSold
+##             0             0             0             0             0
+## SaleCondition
 ##             0</code></pre>
 <p>I want to remove the PoolQC, MiscFeature, Alley, and Fence variables because more than half of their values are missing.</p>
 <pre class="r"><code class="hljs">full$PoolQC &lt;- <span class="hljs-literal"><span class="hljs-literal">NULL</span></span>
@@ -480,16 +479,16 @@ imp_data &lt;- complete(imp, <span class="hljs-number"><span class="hljs-number"
 }</code></pre>
 <p>Now that the imputation process is complete, I need to start with feature selection. I start by creating tables for a few of the categorical variables and observe that some of the factor levels have few data points attributed to them.</p>
 <pre class="r"><code class="hljs">table(full$RoofMatl)</code></pre>
-<pre><code class="hljs">## 
-## ClyTile CompShg Membran   Metal    Roll Tar&amp;Grv WdShake WdShngl 
+<pre><code class="hljs">##
+## ClyTile CompShg Membran   Metal    Roll Tar&amp;Grv WdShake WdShngl
 ##    1443    1446       5       2       1      11       5       6</code></pre>
 <pre class="r"><code class="hljs">table(full$Heating)</code></pre>
-<pre><code class="hljs">## 
-## Floor  GasA  GasW  Grav  OthW  Wall 
+<pre><code class="hljs">##
+## Floor  GasA  GasW  Grav  OthW  Wall
 ##  1447  1437    20     9     2     4</code></pre>
 <pre class="r"><code class="hljs">table(full$HeatingQC)</code></pre>
-<pre><code class="hljs">## 
-##   Ex   Fa   Gd   Po   TA 
+<pre><code class="hljs">##
+##   Ex   Fa   Gd   Po   TA
 ## 1493   92  474    3  857</code></pre>
 <p>To fix the RoofMatl and Heating columns I lump the scarce factor levels into a category called ‘Other’. For HeatingQC ‘Po’ represents poor condition and the next closest factor option is ‘Fa’, fair condition. I reclassify the three poors and fair.</p>
 <pre class="r"><code class="hljs">full$RoofMatl = as.character(full$RoofMatl)
@@ -498,24 +497,24 @@ full$RoofMatl[which(full$RoofMatl == <span class="hljs-string"><span class="hljs
 full$RoofMatl[which(full$RoofMatl == <span class="hljs-string"><span class="hljs-string">"Metal"</span></span>)] &lt;- <span class="hljs-string"><span class="hljs-string">"Other"</span></span>
 full$RoofMatl[which(full$RoofMatl == <span class="hljs-string"><span class="hljs-string">"Roll"</span></span>)] &lt;- <span class="hljs-string"><span class="hljs-string">"Other"</span></span>
 full$RoofMatl &lt;- as.factor(full$RoofMatl)
-  
+
 full$Heating &lt;- as.character(full$Heating)
 full$Heating[which(full$Heating == <span class="hljs-string"><span class="hljs-string">"Floor"</span></span>)] &lt;- <span class="hljs-string"><span class="hljs-string">"Other"</span></span>
 full$Heating[which(full$Heating == <span class="hljs-string"><span class="hljs-string">"OthW"</span></span>)] &lt;- <span class="hljs-string"><span class="hljs-string">"Other"</span></span>
 full$Heating[which(full$Heating == <span class="hljs-string"><span class="hljs-string">"Wall"</span></span>)] &lt;- <span class="hljs-string"><span class="hljs-string">"Other"</span></span>
-full$Heating &lt;- as.factor(full$Heating) 
+full$Heating &lt;- as.factor(full$Heating)
 
 full$HeatingQC &lt;- as.character(full$HeatingQC)
 full$HeatingQC[which(full$HeatingQC == <span class="hljs-string"><span class="hljs-string">"Po"</span></span>)] &lt;- <span class="hljs-string"><span class="hljs-string">"Fa"</span></span>
 full$HeatingQC &lt;- as.factor(full$HeatingQC)</code></pre>
 <p>Next I look at the Condition1 and Condition2 variables.</p>
 <pre class="r"><code class="hljs">table(full$Condition1)</code></pre>
-<pre><code class="hljs">## 
-## Artery  Feedr   Norm   PosA   PosN   RRAe   RRAn   RRNe   RRNn 
+<pre><code class="hljs">##
+## Artery  Feedr   Norm   PosA   PosN   RRAe   RRAn   RRNe   RRNn
 ##     92    164   2511     20     39     28     50      6      9</code></pre>
 <pre class="r"><code class="hljs">table(full$Condition2)</code></pre>
-<pre><code class="hljs">## 
-## Artery  Feedr   Norm   PosA   PosN   RRAe   RRAn   RRNn 
+<pre><code class="hljs">##
+## Artery  Feedr   Norm   PosA   PosN   RRAe   RRAn   RRNn
 ##      5     13   2889      4      4      1      1      2</code></pre>
 <p>These variables display the same information. Condition1 tells whether the property is near any positive or negative features such as railroads, artery roads, or parks. Condition2 tells if the property is near a second positive or negative feature. Instead of using Condition1 and Condition2 I expand out the variables into 8 different columns, one for each possible positive or negative feature. Each column will display a 1 if the property is near that feature or a 0 if it is not near it.</p>
 <pre class="r"><code class="hljs">full$Artery &lt;- <span class="hljs-number"><span class="hljs-number">0</span></span>
@@ -648,51 +647,51 @@ test &lt;- subset(house_train, split == <span class="hljs-literal"><span class="
 <pre class="r"><code class="hljs">set.seed(<span class="hljs-number"><span class="hljs-number">25</span></span>)
 forest1 &lt;- randomForest(SalePrice ~ ., data = train, ntree = <span class="hljs-number"><span class="hljs-number">3000</span></span>, importance = <span class="hljs-literal"><span class="hljs-literal">TRUE</span></span>)
 sort(forest1$importance[,<span class="hljs-number"><span class="hljs-number">1</span></span>], decreasing = <span class="hljs-literal"><span class="hljs-literal">TRUE</span></span>)</code></pre>
-<pre><code class="hljs">##   OverallQual  TotalSFwBsmt  Neighborhood       TotalSF     GrLivArea 
-##  1.154320e+09  9.077294e+08  7.350561e+08  4.383173e+08  3.710613e+08 
-##    GarageCars     ExterQual   TotalBsmtSF     YearBuilt     X1stFlrSF 
-##  2.122122e+08  1.811330e+08  1.692465e+08  1.504559e+08  1.430129e+08 
-##   KitchenQual  YearRemodAdd    GarageArea      BsmtQual   GarageYrBlt 
-##  1.158456e+08  8.601381e+07  8.443563e+07  6.649061e+07  6.523777e+07 
-##     X2ndFlrSF       LotArea    BsmtFinSF1   OverallCond     BsmtUnfSF 
-##  5.648081e+07  5.144896e+07  4.605186e+07  3.742130e+07  2.873003e+07 
-##    GarageType  TotRmsAbvGrd      FullBath  GarageFinish  BsmtFinType1 
-##  2.417936e+07  2.074361e+07  1.890415e+07  1.889225e+07  1.864993e+07 
-## TotalFullBath  BedroomAbvGr    MasVnrArea    MSSubClass    WoodDeckSF 
-##  1.708292e+07  1.618983e+07  1.558333e+07  1.469738e+07  1.446197e+07 
-##    HouseStyle   OpenPorchSF  BsmtExposure  BsmtFullBath    Foundation 
-##  1.255545e+07  1.234453e+07  1.193865e+07  1.101262e+07  1.084940e+07 
-##     HeatingQC    Fireplaces      MSZoning   LandContour TotalHalfBath 
-##  1.056190e+07  1.045623e+07  9.953211e+06  9.431889e+06  8.802035e+06 
-##    MasVnrType   LotFrontage      HalfBath SaleCondition       HdBoard 
-##  8.513310e+06  6.928691e+06  6.204612e+06  6.077577e+06  5.796465e+06 
-##      BldgType    CentralAir     RoofStyle      SaleType       VinylSd 
-##  5.363191e+06  5.259039e+06  4.951702e+06  4.627746e+06  3.295066e+06 
-##   FireplaceQu    Functional  KitchenAbvGr       MetalSd        WdSdng 
-##  3.286122e+06  2.690928e+06  2.607694e+06  2.533327e+06  1.937222e+06 
-##      LotShape       BrkFace        YrSold     ExterCond         Feedr 
-##  1.558557e+06  1.423272e+06  1.420460e+06  1.322670e+06  9.146605e+05 
-##    PavedDrive     LandSlope    BsmtFinSF2  BsmtFinType2      BsmtCond 
-##  8.137429e+05  5.902228e+05  3.163828e+05  3.090603e+05  2.937027e+05 
-##   ScreenPorch  BsmtHalfBath EnclosedPorch       WdShing    Electrical 
-##  2.935776e+05  2.445155e+05  1.124059e+05  5.855040e+04  3.395023e+04 
-##          PosN    X3SsnPorch          RRAe       Plywood        Street 
-##  2.851446e+04  2.554989e+04  2.023398e+04  1.590513e+04  9.440982e+03 
-##          RRNn         Stone          PosA       AsphShn     Utilities 
-##  3.963864e+03  3.050441e+03  1.859723e+03  7.855090e+02  0.000000e+00 
-##          RRNe       BrkComm        CBlock        Stucco       AsbShng 
-##  0.000000e+00  0.000000e+00  0.000000e+00 -4.211908e+04 -4.723055e+04 
-##       MiscVal          RRAn    GarageCond        Artery    GarageQual 
-## -5.337331e+04 -1.071005e+05 -1.255326e+05 -1.659107e+05 -2.276528e+05 
-##       Heating  LowQualFinSF       CemntBd      PoolArea       ImStucc 
-## -3.011983e+05 -7.451289e+05 -1.251544e+06 -1.603336e+06 -1.885816e+06 
-##      RoofMatl        MoSold     LotConfig 
+<pre><code class="hljs">##   OverallQual  TotalSFwBsmt  Neighborhood       TotalSF     GrLivArea
+##  1.154320e+09  9.077294e+08  7.350561e+08  4.383173e+08  3.710613e+08
+##    GarageCars     ExterQual   TotalBsmtSF     YearBuilt     X1stFlrSF
+##  2.122122e+08  1.811330e+08  1.692465e+08  1.504559e+08  1.430129e+08
+##   KitchenQual  YearRemodAdd    GarageArea      BsmtQual   GarageYrBlt
+##  1.158456e+08  8.601381e+07  8.443563e+07  6.649061e+07  6.523777e+07
+##     X2ndFlrSF       LotArea    BsmtFinSF1   OverallCond     BsmtUnfSF
+##  5.648081e+07  5.144896e+07  4.605186e+07  3.742130e+07  2.873003e+07
+##    GarageType  TotRmsAbvGrd      FullBath  GarageFinish  BsmtFinType1
+##  2.417936e+07  2.074361e+07  1.890415e+07  1.889225e+07  1.864993e+07
+## TotalFullBath  BedroomAbvGr    MasVnrArea    MSSubClass    WoodDeckSF
+##  1.708292e+07  1.618983e+07  1.558333e+07  1.469738e+07  1.446197e+07
+##    HouseStyle   OpenPorchSF  BsmtExposure  BsmtFullBath    Foundation
+##  1.255545e+07  1.234453e+07  1.193865e+07  1.101262e+07  1.084940e+07
+##     HeatingQC    Fireplaces      MSZoning   LandContour TotalHalfBath
+##  1.056190e+07  1.045623e+07  9.953211e+06  9.431889e+06  8.802035e+06
+##    MasVnrType   LotFrontage      HalfBath SaleCondition       HdBoard
+##  8.513310e+06  6.928691e+06  6.204612e+06  6.077577e+06  5.796465e+06
+##      BldgType    CentralAir     RoofStyle      SaleType       VinylSd
+##  5.363191e+06  5.259039e+06  4.951702e+06  4.627746e+06  3.295066e+06
+##   FireplaceQu    Functional  KitchenAbvGr       MetalSd        WdSdng
+##  3.286122e+06  2.690928e+06  2.607694e+06  2.533327e+06  1.937222e+06
+##      LotShape       BrkFace        YrSold     ExterCond         Feedr
+##  1.558557e+06  1.423272e+06  1.420460e+06  1.322670e+06  9.146605e+05
+##    PavedDrive     LandSlope    BsmtFinSF2  BsmtFinType2      BsmtCond
+##  8.137429e+05  5.902228e+05  3.163828e+05  3.090603e+05  2.937027e+05
+##   ScreenPorch  BsmtHalfBath EnclosedPorch       WdShing    Electrical
+##  2.935776e+05  2.445155e+05  1.124059e+05  5.855040e+04  3.395023e+04
+##          PosN    X3SsnPorch          RRAe       Plywood        Street
+##  2.851446e+04  2.554989e+04  2.023398e+04  1.590513e+04  9.440982e+03
+##          RRNn         Stone          PosA       AsphShn     Utilities
+##  3.963864e+03  3.050441e+03  1.859723e+03  7.855090e+02  0.000000e+00
+##          RRNe       BrkComm        CBlock        Stucco       AsbShng
+##  0.000000e+00  0.000000e+00  0.000000e+00 -4.211908e+04 -4.723055e+04
+##       MiscVal          RRAn    GarageCond        Artery    GarageQual
+## -5.337331e+04 -1.071005e+05 -1.255326e+05 -1.659107e+05 -2.276528e+05
+##       Heating  LowQualFinSF       CemntBd      PoolArea       ImStucc
+## -3.011983e+05 -7.451289e+05 -1.251544e+06 -1.603336e+06 -1.885816e+06
+##      RoofMatl        MoSold     LotConfig
 ## -2.094420e+06 -2.547111e+06 -2.621197e+06</code></pre>
 <p>Using the information provided in the table and using guess and check, I make the best model that I can. The variables at the top of the table are more important and I am more likely to keep those variables.</p>
 <pre class="r"><code class="hljs">set.seed(<span class="hljs-number"><span class="hljs-number">25</span></span>)
 forest1 &lt;- randomForest(SalePrice ~ OverallQual + Neighborhood + TotalSF + TotalBsmtSF + YearBuilt
                        + LotArea + OverallCond + KitchenQual + GarageCars + BsmtQual + ExterQual
-                       + YearRemodAdd + BsmtExposure + Fireplaces + CentralAir + BrkFace 
+                       + YearRemodAdd + BsmtExposure + Fireplaces + CentralAir + BrkFace
                        + LotConfig + HalfBath + BsmtFullBath + BsmtHalfBath + BsmtUnfSF
                        + KitchenAbvGr + TotalHalfBath,
                        data = train, ntree = <span class="hljs-number"><span class="hljs-number">3000</span></span>, importance = <span class="hljs-literal"><span class="hljs-literal">TRUE</span></span>)
@@ -715,235 +714,235 @@ SSElog &lt;- log(SSE, <span class="hljs-number"><span class="hljs-number">10</sp
 <p>To select the best variables for my logistic regression model, I make a model using all of the variables and check the summary to find the most important variables.</p>
 <pre class="r"><code class="hljs">lm1 &lt;- lm(SalePrice ~ ., data = house_train)
 summary(lm1)</code></pre>
-<pre><code class="hljs">## 
+<pre><code class="hljs">##
 ## Call:
 ## lm(formula = SalePrice ~ ., data = house_train)
-## 
+##
 ## Residuals:
-##     Min      1Q  Median      3Q     Max 
-## -286299  -10788    -101   10533  204051 
-## 
+##     Min      1Q  Median      3Q     Max
+## -286299  -10788    -101   10533  204051
+##
 ## Coefficients: (3 not defined because of singularities)
-##                        Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept)           7.998e+05  1.219e+06   0.656 0.511969    
-## MSSubClass           -1.289e+02  9.587e+01  -1.344 0.179146    
-## MSZoning2             3.339e+04  1.392e+04   2.399 0.016580 *  
-## MSZoning3             2.217e+04  1.380e+04   1.607 0.108392    
-## MSZoning4             2.573e+04  1.181e+04   2.179 0.029501 *  
-## MSZoning5             2.285e+04  1.107e+04   2.065 0.039122 *  
-## LotFrontage          -5.415e+01  4.835e+01  -1.120 0.262866    
+##                        Estimate Std. Error t value Pr(&gt;|t|)
+## (Intercept)           7.998e+05  1.219e+06   0.656 0.511969
+## MSSubClass           -1.289e+02  9.587e+01  -1.344 0.179146
+## MSZoning2             3.339e+04  1.392e+04   2.399 0.016580 *
+## MSZoning3             2.217e+04  1.380e+04   1.607 0.108392
+## MSZoning4             2.573e+04  1.181e+04   2.179 0.029501 *
+## MSZoning5             2.285e+04  1.107e+04   2.065 0.039122 *
+## LotFrontage          -5.415e+01  4.835e+01  -1.120 0.262866
 ## LotArea               4.251e-01  1.232e-01   3.451 0.000576 ***
-## StreetPave            2.566e+04  1.397e+04   1.836 0.066554 .  
-## LotShapeIR2           5.196e+03  4.848e+03   1.072 0.284064    
-## LotShapeIR3          -1.256e+04  1.010e+04  -1.243 0.214196    
-## LotShapeReg           1.034e+03  1.844e+03   0.561 0.575217    
-## LandContourHLS        1.855e+04  5.872e+03   3.159 0.001624 ** 
-## LandContourLow        9.871e+03  7.252e+03   1.361 0.173732    
+## StreetPave            2.566e+04  1.397e+04   1.836 0.066554 .
+## LotShapeIR2           5.196e+03  4.848e+03   1.072 0.284064
+## LotShapeIR3          -1.256e+04  1.010e+04  -1.243 0.214196
+## LotShapeReg           1.034e+03  1.844e+03   0.561 0.575217
+## LandContourHLS        1.855e+04  5.872e+03   3.159 0.001624 **
+## LandContourLow        9.871e+03  7.252e+03   1.361 0.173732
 ## LandContourLvl        1.605e+04  4.222e+03   3.801 0.000151 ***
-## Utilities2           -6.534e+04  3.077e+04  -2.123 0.033913 *  
-## LotConfigCulDSac      1.075e+04  4.093e+03   2.626 0.008747 ** 
-## LotConfigFR2         -9.344e+03  4.667e+03  -2.002 0.045470 *  
-## LotConfigFR3         -1.664e+04  1.437e+04  -1.158 0.247005    
-## LotConfigInside      -1.725e+03  2.072e+03  -0.832 0.405409    
-## LandSlopeMod          8.272e+03  4.571e+03   1.810 0.070611 .  
-## LandSlopeSev         -2.497e+01  1.251e+04  -0.002 0.998408    
-## NeighborhoodBlueste  -9.211e+03  2.215e+04  -0.416 0.677534    
-## NeighborhoodBrDale    3.124e+03  1.297e+04   0.241 0.809754    
-## NeighborhoodBrkSide  -6.205e+03  1.090e+04  -0.569 0.569327    
-## NeighborhoodClearCr  -1.374e+04  1.067e+04  -1.288 0.198086    
-## NeighborhoodCollgCr  -6.293e+03  8.457e+03  -0.744 0.456946    
-## NeighborhoodCrawfor   1.099e+04  9.933e+03   1.107 0.268694    
-## NeighborhoodEdwards  -2.595e+04  9.336e+03  -2.780 0.005520 ** 
-## NeighborhoodGilbert  -1.200e+04  8.968e+03  -1.338 0.181120    
-## NeighborhoodIDOTRR   -1.510e+04  1.242e+04  -1.216 0.224033    
-## NeighborhoodMeadowV  -2.161e+03  1.314e+04  -0.164 0.869379    
-## NeighborhoodMitchel  -2.119e+04  9.514e+03  -2.227 0.026110 *  
-## NeighborhoodNAmes    -1.565e+04  9.112e+03  -1.717 0.086169 .  
+## Utilities2           -6.534e+04  3.077e+04  -2.123 0.033913 *
+## LotConfigCulDSac      1.075e+04  4.093e+03   2.626 0.008747 **
+## LotConfigFR2         -9.344e+03  4.667e+03  -2.002 0.045470 *
+## LotConfigFR3         -1.664e+04  1.437e+04  -1.158 0.247005
+## LotConfigInside      -1.725e+03  2.072e+03  -0.832 0.405409
+## LandSlopeMod          8.272e+03  4.571e+03   1.810 0.070611 .
+## LandSlopeSev         -2.497e+01  1.251e+04  -0.002 0.998408
+## NeighborhoodBlueste  -9.211e+03  2.215e+04  -0.416 0.677534
+## NeighborhoodBrDale    3.124e+03  1.297e+04   0.241 0.809754
+## NeighborhoodBrkSide  -6.205e+03  1.090e+04  -0.569 0.569327
+## NeighborhoodClearCr  -1.374e+04  1.067e+04  -1.288 0.198086
+## NeighborhoodCollgCr  -6.293e+03  8.457e+03  -0.744 0.456946
+## NeighborhoodCrawfor   1.099e+04  9.933e+03   1.107 0.268694
+## NeighborhoodEdwards  -2.595e+04  9.336e+03  -2.780 0.005520 **
+## NeighborhoodGilbert  -1.200e+04  8.968e+03  -1.338 0.181120
+## NeighborhoodIDOTRR   -1.510e+04  1.242e+04  -1.216 0.224033
+## NeighborhoodMeadowV  -2.161e+03  1.314e+04  -0.164 0.869379
+## NeighborhoodMitchel  -2.119e+04  9.514e+03  -2.227 0.026110 *
+## NeighborhoodNAmes    -1.565e+04  9.112e+03  -1.717 0.086169 .
 ## NeighborhoodNoRidge   3.950e+04  9.787e+03   4.036 5.76e-05 ***
-## NeighborhoodNPkVill   6.254e+03  1.275e+04   0.490 0.623983    
-## NeighborhoodNridgHt   2.816e+04  8.718e+03   3.230 0.001270 ** 
-## NeighborhoodNWAmes   -1.663e+04  9.361e+03  -1.777 0.075815 .  
-## NeighborhoodOldTown  -2.063e+04  1.112e+04  -1.856 0.063722 .  
-## NeighborhoodSawyer   -1.267e+04  9.504e+03  -1.333 0.182816    
-## NeighborhoodSawyerW  -2.689e+03  9.079e+03  -0.296 0.767180    
-## NeighborhoodSomerst   4.064e+03  1.045e+04   0.389 0.697362    
+## NeighborhoodNPkVill   6.254e+03  1.275e+04   0.490 0.623983
+## NeighborhoodNridgHt   2.816e+04  8.718e+03   3.230 0.001270 **
+## NeighborhoodNWAmes   -1.663e+04  9.361e+03  -1.777 0.075815 .
+## NeighborhoodOldTown  -2.063e+04  1.112e+04  -1.856 0.063722 .
+## NeighborhoodSawyer   -1.267e+04  9.504e+03  -1.333 0.182816
+## NeighborhoodSawyerW  -2.689e+03  9.079e+03  -0.296 0.767180
+## NeighborhoodSomerst   4.064e+03  1.045e+04   0.389 0.697362
 ## NeighborhoodStoneBr   4.553e+04  9.583e+03   4.751 2.25e-06 ***
-## NeighborhoodSWISU    -1.168e+04  1.129e+04  -1.034 0.301211    
-## NeighborhoodTimber   -4.977e+03  9.421e+03  -0.528 0.597387    
-## NeighborhoodVeenker   1.489e+03  1.225e+04   0.122 0.903266    
-## BldgType2fmCon        1.325e+04  1.444e+04   0.918 0.358997    
-## BldgTypeDuplex        2.690e+03  8.441e+03   0.319 0.749976    
-## BldgTypeTwnhs        -1.997e+04  1.151e+04  -1.735 0.082949 .  
-## BldgTypeTwnhsE       -1.410e+04  1.040e+04  -1.355 0.175704    
-## HouseStyle1.5Unf      1.247e+04  8.637e+03   1.444 0.149037    
-## HouseStyle1Story      1.195e+04  4.971e+03   2.404 0.016342 *  
-## HouseStyle2.5Fin     -1.703e+04  1.401e+04  -1.215 0.224522    
-## HouseStyle2.5Unf     -5.580e+03  1.024e+04  -0.545 0.585779    
-## HouseStyle2Story     -6.884e+03  4.029e+03  -1.709 0.087771 .  
-## HouseStyleSFoyer      8.606e+03  7.199e+03   1.195 0.232158    
-## HouseStyleSLvl        9.957e+03  6.356e+03   1.567 0.117472    
+## NeighborhoodSWISU    -1.168e+04  1.129e+04  -1.034 0.301211
+## NeighborhoodTimber   -4.977e+03  9.421e+03  -0.528 0.597387
+## NeighborhoodVeenker   1.489e+03  1.225e+04   0.122 0.903266
+## BldgType2fmCon        1.325e+04  1.444e+04   0.918 0.358997
+## BldgTypeDuplex        2.690e+03  8.441e+03   0.319 0.749976
+## BldgTypeTwnhs        -1.997e+04  1.151e+04  -1.735 0.082949 .
+## BldgTypeTwnhsE       -1.410e+04  1.040e+04  -1.355 0.175704
+## HouseStyle1.5Unf      1.247e+04  8.637e+03   1.444 0.149037
+## HouseStyle1Story      1.195e+04  4.971e+03   2.404 0.016342 *
+## HouseStyle2.5Fin     -1.703e+04  1.401e+04  -1.215 0.224522
+## HouseStyle2.5Unf     -5.580e+03  1.024e+04  -0.545 0.585779
+## HouseStyle2Story     -6.884e+03  4.029e+03  -1.709 0.087771 .
+## HouseStyleSFoyer      8.606e+03  7.199e+03   1.195 0.232158
+## HouseStyleSLvl        9.957e+03  6.356e+03   1.567 0.117472
 ## OverallQual           7.418e+03  1.156e+03   6.414 2.00e-10 ***
 ## OverallCond           4.887e+03  1.008e+03   4.850 1.39e-06 ***
-## YearBuilt             1.763e+02  9.036e+01   1.951 0.051311 .  
-## YearRemodAdd          8.277e+01  6.459e+01   1.282 0.200231    
+## YearBuilt             1.763e+02  9.036e+01   1.951 0.051311 .
+## YearRemodAdd          8.277e+01  6.459e+01   1.282 0.200231
 ## RoofStyleGable       -8.136e+04  1.837e+04  -4.430 1.03e-05 ***
 ## RoofStyleGambrel     -7.951e+04  2.065e+04  -3.850 0.000124 ***
 ## RoofStyleHip         -7.980e+04  1.850e+04  -4.314 1.73e-05 ***
-## RoofStyleMansard     -6.911e+04  2.225e+04  -3.106 0.001937 ** 
-## RoofStyleShed        -5.159e+04  2.933e+04  -1.759 0.078812 .  
+## RoofStyleMansard     -6.911e+04  2.225e+04  -3.106 0.001937 **
+## RoofStyleShed        -5.159e+04  2.933e+04  -1.759 0.078812 .
 ## RoofMatlOther        -1.407e+05  1.878e+04  -7.490 1.29e-13 ***
 ## RoofMatlTar&amp;Grv      -7.797e+04  1.863e+04  -4.186 3.03e-05 ***
-## RoofMatlWdShake       4.984e+03  1.540e+04   0.324 0.746213    
+## RoofMatlWdShake       4.984e+03  1.540e+04   0.324 0.746213
 ## RoofMatlWdShngl       8.310e+04  1.243e+04   6.687 3.42e-11 ***
-## MasVnrType2           2.438e+03  7.660e+03   0.318 0.750311    
-## MasVnrType3           6.023e+03  7.727e+03   0.779 0.435847    
-## MasVnrType4           9.874e+03  8.139e+03   1.213 0.225296    
-## MasVnrArea            1.670e+01  6.641e+00   2.516 0.012011 *  
-## ExterQualFa          -7.096e+03  1.270e+04  -0.559 0.576469    
-## ExterQualGd          -1.138e+04  5.497e+03  -2.071 0.038585 *  
-## ExterQualTA          -1.342e+04  6.077e+03  -2.208 0.027427 *  
-## ExterCondFa          -2.551e+04  1.868e+04  -1.365 0.172368    
-## ExterCondGd          -2.193e+04  1.748e+04  -1.254 0.209921    
-## ExterCondPo          -3.209e+04  3.489e+04  -0.920 0.357966    
-## ExterCondTA          -2.105e+04  1.744e+04  -1.207 0.227802    
-## FoundationCBlock      5.047e+03  3.726e+03   1.355 0.175784    
-## FoundationPConc       5.535e+03  3.996e+03   1.385 0.166296    
-## FoundationSlab       -4.275e+03  8.642e+03  -0.495 0.620929    
-## FoundationStone       7.004e+03  1.277e+04   0.548 0.583561    
-## FoundationWood       -1.622e+04  1.734e+04  -0.935 0.349715    
-## BsmtQual2            -2.037e+04  7.059e+03  -2.886 0.003965 ** 
+## MasVnrType2           2.438e+03  7.660e+03   0.318 0.750311
+## MasVnrType3           6.023e+03  7.727e+03   0.779 0.435847
+## MasVnrType4           9.874e+03  8.139e+03   1.213 0.225296
+## MasVnrArea            1.670e+01  6.641e+00   2.516 0.012011 *
+## ExterQualFa          -7.096e+03  1.270e+04  -0.559 0.576469
+## ExterQualGd          -1.138e+04  5.497e+03  -2.071 0.038585 *
+## ExterQualTA          -1.342e+04  6.077e+03  -2.208 0.027427 *
+## ExterCondFa          -2.551e+04  1.868e+04  -1.365 0.172368
+## ExterCondGd          -2.193e+04  1.748e+04  -1.254 0.209921
+## ExterCondPo          -3.209e+04  3.489e+04  -0.920 0.357966
+## ExterCondTA          -2.105e+04  1.744e+04  -1.207 0.227802
+## FoundationCBlock      5.047e+03  3.726e+03   1.355 0.175784
+## FoundationPConc       5.535e+03  3.996e+03   1.385 0.166296
+## FoundationSlab       -4.275e+03  8.642e+03  -0.495 0.620929
+## FoundationStone       7.004e+03  1.277e+04   0.548 0.583561
+## FoundationWood       -1.622e+04  1.734e+04  -0.935 0.349715
+## BsmtQual2            -2.037e+04  7.059e+03  -2.886 0.003965 **
 ## BsmtQual3            -2.317e+04  3.850e+03  -6.018 2.31e-09 ***
 ## BsmtQual4            -2.179e+04  4.707e+03  -4.629 4.07e-06 ***
-## BsmtCond2             1.553e+02  6.050e+03   0.026 0.979528    
-## BsmtCond3             3.760e+04  3.485e+04   1.079 0.280830    
-## BsmtCond4             3.931e+03  4.861e+03   0.809 0.418894    
+## BsmtCond2             1.553e+02  6.050e+03   0.026 0.979528
+## BsmtCond3             3.760e+04  3.485e+04   1.079 0.280830
+## BsmtCond4             3.931e+03  4.861e+03   0.809 0.418894
 ## BsmtExposure2         1.454e+04  3.460e+03   4.203 2.82e-05 ***
-## BsmtExposure3        -2.945e+03  3.446e+03  -0.854 0.393019    
-## BsmtExposure4        -5.582e+03  2.478e+03  -2.253 0.024448 *  
-## BsmtFinType12        -4.046e+02  3.167e+03  -0.128 0.898371    
-## BsmtFinType13         4.454e+03  2.906e+03   1.533 0.125581    
-## BsmtFinType14        -2.025e+03  5.316e+03  -0.381 0.703231    
-## BsmtFinType15         2.118e+03  5.267e+03   0.402 0.687700    
-## BsmtFinType16        -4.264e+03  3.337e+03  -1.278 0.201577    
-## BsmtFinSF1            4.486e+00  8.188e+00   0.548 0.583918    
-## BsmtFinType22        -6.468e+03  8.674e+03  -0.746 0.456021    
-## BsmtFinType23         6.526e+03  1.039e+04   0.628 0.530059    
-## BsmtFinType24        -5.564e+03  9.227e+03  -0.603 0.546606    
-## BsmtFinType25        -3.187e+03  9.095e+03  -0.350 0.726053    
-## BsmtFinType26        -1.085e+03  9.039e+03  -0.120 0.904468    
-## BsmtFinSF2            6.112e+00  1.077e+01   0.567 0.570651    
-## BsmtUnfSF             4.007e+00  4.585e+00   0.874 0.382305    
-## TotalBsmtSF                  NA         NA      NA       NA    
-## HeatingGasW           2.476e+03  8.002e+03   0.309 0.757010    
-## HeatingGrav          -7.212e+03  1.588e+04  -0.454 0.649724    
-## HeatingOther         -1.155e+04  1.239e+04  -0.932 0.351608    
-## HeatingQCFa          -7.181e+01  5.215e+03  -0.014 0.989016    
-## HeatingQCGd          -3.057e+03  2.395e+03  -1.277 0.202006    
-## HeatingQCTA          -3.553e+03  2.403e+03  -1.478 0.139552    
-## CentralAirY           8.632e+02  4.411e+03   0.196 0.844870    
-## Electrical2           6.345e+02  6.602e+03   0.096 0.923450    
-## Electrical3           2.298e+03  2.017e+04   0.114 0.909279    
-## Electrical4          -2.387e+04  5.025e+04  -0.475 0.634851    
-## Electrical5          -3.566e+03  3.399e+03  -1.049 0.294438    
+## BsmtExposure3        -2.945e+03  3.446e+03  -0.854 0.393019
+## BsmtExposure4        -5.582e+03  2.478e+03  -2.253 0.024448 *
+## BsmtFinType12        -4.046e+02  3.167e+03  -0.128 0.898371
+## BsmtFinType13         4.454e+03  2.906e+03   1.533 0.125581
+## BsmtFinType14        -2.025e+03  5.316e+03  -0.381 0.703231
+## BsmtFinType15         2.118e+03  5.267e+03   0.402 0.687700
+## BsmtFinType16        -4.264e+03  3.337e+03  -1.278 0.201577
+## BsmtFinSF1            4.486e+00  8.188e+00   0.548 0.583918
+## BsmtFinType22        -6.468e+03  8.674e+03  -0.746 0.456021
+## BsmtFinType23         6.526e+03  1.039e+04   0.628 0.530059
+## BsmtFinType24        -5.564e+03  9.227e+03  -0.603 0.546606
+## BsmtFinType25        -3.187e+03  9.095e+03  -0.350 0.726053
+## BsmtFinType26        -1.085e+03  9.039e+03  -0.120 0.904468
+## BsmtFinSF2            6.112e+00  1.077e+01   0.567 0.570651
+## BsmtUnfSF             4.007e+00  4.585e+00   0.874 0.382305
+## TotalBsmtSF                  NA         NA      NA       NA
+## HeatingGasW           2.476e+03  8.002e+03   0.309 0.757010
+## HeatingGrav          -7.212e+03  1.588e+04  -0.454 0.649724
+## HeatingOther         -1.155e+04  1.239e+04  -0.932 0.351608
+## HeatingQCFa          -7.181e+01  5.215e+03  -0.014 0.989016
+## HeatingQCGd          -3.057e+03  2.395e+03  -1.277 0.202006
+## HeatingQCTA          -3.553e+03  2.403e+03  -1.478 0.139552
+## CentralAirY           8.632e+02  4.411e+03   0.196 0.844870
+## Electrical2           6.345e+02  6.602e+03   0.096 0.923450
+## Electrical3           2.298e+03  2.017e+04   0.114 0.909279
+## Electrical4          -2.387e+04  5.025e+04  -0.475 0.634851
+## Electrical5          -3.566e+03  3.399e+03  -1.049 0.294438
 ## X1stFlrSF             3.782e+01  1.019e+01   3.712 0.000215 ***
 ## X2ndFlrSF             5.623e+01  1.035e+01   5.436 6.55e-08 ***
-## LowQualFinSF          3.077e+01  2.114e+01   1.456 0.145701    
-## GrLivArea                    NA         NA      NA       NA    
-## BsmtFullBath          3.694e+03  4.279e+03   0.863 0.388144    
-## BsmtHalfBath         -7.880e+03  6.578e+03  -1.198 0.231123    
-## FullBath              4.919e+03  5.634e+03   0.873 0.382842    
-## HalfBath             -1.105e+04  7.952e+03  -1.389 0.164968    
-## BedroomAbvGr         -2.584e+03  1.579e+03  -1.636 0.102019    
-## KitchenAbvGr         -1.580e+04  6.443e+03  -2.453 0.014317 *  
-## KitchenQual2         -2.355e+04  7.161e+03  -3.289 0.001033 ** 
+## LowQualFinSF          3.077e+01  2.114e+01   1.456 0.145701
+## GrLivArea                    NA         NA      NA       NA
+## BsmtFullBath          3.694e+03  4.279e+03   0.863 0.388144
+## BsmtHalfBath         -7.880e+03  6.578e+03  -1.198 0.231123
+## FullBath              4.919e+03  5.634e+03   0.873 0.382842
+## HalfBath             -1.105e+04  7.952e+03  -1.389 0.164968
+## BedroomAbvGr         -2.584e+03  1.579e+03  -1.636 0.102019
+## KitchenAbvGr         -1.580e+04  6.443e+03  -2.453 0.014317 *
+## KitchenQual2         -2.355e+04  7.161e+03  -3.289 0.001033 **
 ## KitchenQual3         -2.730e+04  4.008e+03  -6.811 1.50e-11 ***
 ## KitchenQual4         -2.604e+04  4.509e+03  -5.775 9.72e-09 ***
-## TotRmsAbvGrd          3.171e+03  1.087e+03   2.917 0.003597 ** 
-## Functional2          -4.303e+03  1.663e+04  -0.259 0.795908    
-## Functional3           5.400e+03  9.998e+03   0.540 0.589199    
-## Functional4           9.614e+03  1.001e+04   0.960 0.337238    
-## Functional5           1.439e+04  1.181e+04   1.219 0.223166    
-## Functional6          -3.993e+04  3.382e+04  -1.181 0.237979    
-## Functional7           1.921e+04  8.639e+03   2.224 0.026355 *  
-## Fireplaces            4.488e+03  1.548e+03   2.898 0.003818 ** 
-## FireplaceQu2         -8.670e+02  6.421e+03  -0.135 0.892613    
-## FireplaceQu3         -5.033e+03  5.468e+03  -0.921 0.357446    
-## FireplaceQu4         -2.141e+03  6.430e+03  -0.333 0.739167    
-## FireplaceQu5         -3.092e+03  5.561e+03  -0.556 0.578325    
-## GarageType2           1.046e+04  1.154e+04   0.906 0.364948    
-## GarageType3           1.872e+04  1.341e+04   1.397 0.162723    
-## GarageType4           5.917e+03  1.209e+04   0.489 0.624706    
-## GarageType5           1.268e+04  1.550e+04   0.818 0.413462    
-## GarageType6           1.338e+04  1.150e+04   1.163 0.244890    
-## GarageYrBlt          -4.540e+01  6.944e+01  -0.654 0.513345    
-## GarageFinish2        -2.418e+03  2.258e+03  -1.071 0.284571    
-## GarageFinish3        -1.031e+03  2.717e+03  -0.379 0.704532    
+## TotRmsAbvGrd          3.171e+03  1.087e+03   2.917 0.003597 **
+## Functional2          -4.303e+03  1.663e+04  -0.259 0.795908
+## Functional3           5.400e+03  9.998e+03   0.540 0.589199
+## Functional4           9.614e+03  1.001e+04   0.960 0.337238
+## Functional5           1.439e+04  1.181e+04   1.219 0.223166
+## Functional6          -3.993e+04  3.382e+04  -1.181 0.237979
+## Functional7           1.921e+04  8.639e+03   2.224 0.026355 *
+## Fireplaces            4.488e+03  1.548e+03   2.898 0.003818 **
+## FireplaceQu2         -8.670e+02  6.421e+03  -0.135 0.892613
+## FireplaceQu3         -5.033e+03  5.468e+03  -0.921 0.357446
+## FireplaceQu4         -2.141e+03  6.430e+03  -0.333 0.739167
+## FireplaceQu5         -3.092e+03  5.561e+03  -0.556 0.578325
+## GarageType2           1.046e+04  1.154e+04   0.906 0.364948
+## GarageType3           1.872e+04  1.341e+04   1.397 0.162723
+## GarageType4           5.917e+03  1.209e+04   0.489 0.624706
+## GarageType5           1.268e+04  1.550e+04   0.818 0.413462
+## GarageType6           1.338e+04  1.150e+04   1.163 0.244890
+## GarageYrBlt          -4.540e+01  6.944e+01  -0.654 0.513345
+## GarageFinish2        -2.418e+03  2.258e+03  -1.071 0.284571
+## GarageFinish3        -1.031e+03  2.717e+03  -0.379 0.704532
 ## GarageCars            1.042e+04  2.468e+03   4.220 2.62e-05 ***
-## GarageArea           -5.334e+00  8.897e+00  -0.600 0.548895    
-## GarageQual2          -1.018e+04  1.840e+04  -0.553 0.580240    
-## GarageQual3           5.636e+03  1.990e+04   0.283 0.777062    
-## GarageQual4           8.689e+03  2.026e+04   0.429 0.668028    
-## GarageQual5          -5.146e+03  1.807e+04  -0.285 0.775861    
-## GarageCond2          -4.162e+03  2.732e+04  -0.152 0.878953    
-## GarageCond3          -1.194e+04  2.898e+04  -0.412 0.680274    
-## GarageCond4          -1.919e+04  3.012e+04  -0.637 0.524213    
-## GarageCond5          -3.630e+03  2.684e+04  -0.135 0.892432    
-## PavedDriveP          -4.488e+02  6.314e+03  -0.071 0.943348    
-## PavedDriveY           7.710e+01  3.929e+03   0.020 0.984347    
-## WoodDeckSF            1.565e+01  6.752e+00   2.318 0.020585 *  
-## OpenPorchSF           5.265e+00  1.320e+01   0.399 0.690078    
-## EnclosedPorch         7.514e+00  1.418e+01   0.530 0.596252    
-## X3SsnPorch            5.675e+01  2.596e+01   2.186 0.029020 *  
-## ScreenPorch           4.051e+01  1.409e+01   2.876 0.004101 ** 
-## PoolArea              2.868e+01  2.089e+01   1.373 0.170069    
-## MiscVal              -7.144e-01  1.589e+00  -0.450 0.653094    
-## MoSold               -4.107e+02  2.815e+02  -1.459 0.144793    
-## YrSold               -5.694e+02  5.986e+02  -0.951 0.341671    
-## SaleType2             3.193e+04  2.051e+04   1.557 0.119766    
-## SaleType3             1.803e+04  1.129e+04   1.597 0.110465    
-## SaleType4             1.305e+04  1.345e+04   0.970 0.332407    
-## SaleType5             5.659e+03  1.439e+04   0.393 0.694217    
-## SaleType6             1.600e+04  1.503e+04   1.065 0.287283    
-## SaleType7             3.412e+04  1.796e+04   1.900 0.057660 .  
-## SaleType8             1.530e+04  1.689e+04   0.906 0.365005    
-## SaleType9            -3.696e+02  4.869e+03  -0.076 0.939507    
-## SaleConditionAdjLand  6.294e+03  1.696e+04   0.371 0.710567    
-## SaleConditionAlloca   7.027e+03  9.944e+03   0.707 0.479884    
-## SaleConditionFamily   1.571e+02  7.071e+03   0.022 0.982278    
-## SaleConditionNormal   6.617e+03  3.313e+03   1.997 0.046024 *  
-## SaleConditionPartial -1.587e+04  1.730e+04  -0.918 0.358988    
-## Artery1              -9.599e+03  4.615e+03  -2.080 0.037724 *  
-## Feedr1               -1.054e+04  3.453e+03  -3.053 0.002317 ** 
-## PosA1                 1.185e+03  1.011e+04   0.117 0.906650    
-## PosN1                -2.182e+04  6.823e+03  -3.199 0.001416 ** 
+## GarageArea           -5.334e+00  8.897e+00  -0.600 0.548895
+## GarageQual2          -1.018e+04  1.840e+04  -0.553 0.580240
+## GarageQual3           5.636e+03  1.990e+04   0.283 0.777062
+## GarageQual4           8.689e+03  2.026e+04   0.429 0.668028
+## GarageQual5          -5.146e+03  1.807e+04  -0.285 0.775861
+## GarageCond2          -4.162e+03  2.732e+04  -0.152 0.878953
+## GarageCond3          -1.194e+04  2.898e+04  -0.412 0.680274
+## GarageCond4          -1.919e+04  3.012e+04  -0.637 0.524213
+## GarageCond5          -3.630e+03  2.684e+04  -0.135 0.892432
+## PavedDriveP          -4.488e+02  6.314e+03  -0.071 0.943348
+## PavedDriveY           7.710e+01  3.929e+03   0.020 0.984347
+## WoodDeckSF            1.565e+01  6.752e+00   2.318 0.020585 *
+## OpenPorchSF           5.265e+00  1.320e+01   0.399 0.690078
+## EnclosedPorch         7.514e+00  1.418e+01   0.530 0.596252
+## X3SsnPorch            5.675e+01  2.596e+01   2.186 0.029020 *
+## ScreenPorch           4.051e+01  1.409e+01   2.876 0.004101 **
+## PoolArea              2.868e+01  2.089e+01   1.373 0.170069
+## MiscVal              -7.144e-01  1.589e+00  -0.450 0.653094
+## MoSold               -4.107e+02  2.815e+02  -1.459 0.144793
+## YrSold               -5.694e+02  5.986e+02  -0.951 0.341671
+## SaleType2             3.193e+04  2.051e+04   1.557 0.119766
+## SaleType3             1.803e+04  1.129e+04   1.597 0.110465
+## SaleType4             1.305e+04  1.345e+04   0.970 0.332407
+## SaleType5             5.659e+03  1.439e+04   0.393 0.694217
+## SaleType6             1.600e+04  1.503e+04   1.065 0.287283
+## SaleType7             3.412e+04  1.796e+04   1.900 0.057660 .
+## SaleType8             1.530e+04  1.689e+04   0.906 0.365005
+## SaleType9            -3.696e+02  4.869e+03  -0.076 0.939507
+## SaleConditionAdjLand  6.294e+03  1.696e+04   0.371 0.710567
+## SaleConditionAlloca   7.027e+03  9.944e+03   0.707 0.479884
+## SaleConditionFamily   1.571e+02  7.071e+03   0.022 0.982278
+## SaleConditionNormal   6.617e+03  3.313e+03   1.997 0.046024 *
+## SaleConditionPartial -1.587e+04  1.730e+04  -0.918 0.358988
+## Artery1              -9.599e+03  4.615e+03  -2.080 0.037724 *
+## Feedr1               -1.054e+04  3.453e+03  -3.053 0.002317 **
+## PosA1                 1.185e+03  1.011e+04   0.117 0.906650
+## PosN1                -2.182e+04  6.823e+03  -3.199 0.001416 **
 ## RRAe1                -2.943e+04  8.852e+03  -3.324 0.000912 ***
-## RRAn1                -1.929e+03  5.821e+03  -0.331 0.740470    
-## RRNn1                -5.637e+03  1.151e+04  -0.490 0.624559    
-## RRNe1                -1.913e+04  1.991e+04  -0.961 0.336788    
-## AsbShng1              6.932e+03  7.391e+03   0.938 0.348497    
-## AsphShn1             -1.052e+04  1.730e+04  -0.608 0.543157    
-## BrkComm1              9.367e+02  2.249e+04   0.042 0.966778    
-## BrkFace1              1.485e+04  4.995e+03   2.972 0.003011 ** 
-## CBlock1              -3.167e+03  3.122e+04  -0.101 0.919211    
-## CemntBd1              4.296e+02  6.103e+03   0.070 0.943890    
-## HdBoard1             -3.144e+03  4.118e+03  -0.763 0.445391    
-## ImStucc1              2.293e+04  9.286e+03   2.470 0.013654 *  
-## MetalSd1              2.197e+03  4.384e+03   0.501 0.616398    
-## Plywood1             -2.786e+03  3.861e+03  -0.722 0.470705    
-## Stone1               -1.450e+04  1.271e+04  -1.140 0.254306    
-## Stucco1              -6.114e+03  6.749e+03  -0.906 0.365197    
-## VinylSd1              2.355e+03  4.408e+03   0.534 0.593308    
-## WdSdng1              -4.954e+02  4.149e+03  -0.119 0.904968    
-## WdShing1             -5.808e+03  6.558e+03  -0.886 0.375988    
-## TotalSF                      NA         NA      NA       NA    
-## TotalSFwBsmt          3.030e+00  7.792e+00   0.389 0.697485    
-## TotalFullBath         2.227e+03  4.929e+03   0.452 0.651424    
-## TotalHalfBath         1.311e+04  7.704e+03   1.702 0.088944 .  
+## RRAn1                -1.929e+03  5.821e+03  -0.331 0.740470
+## RRNn1                -5.637e+03  1.151e+04  -0.490 0.624559
+## RRNe1                -1.913e+04  1.991e+04  -0.961 0.336788
+## AsbShng1              6.932e+03  7.391e+03   0.938 0.348497
+## AsphShn1             -1.052e+04  1.730e+04  -0.608 0.543157
+## BrkComm1              9.367e+02  2.249e+04   0.042 0.966778
+## BrkFace1              1.485e+04  4.995e+03   2.972 0.003011 **
+## CBlock1              -3.167e+03  3.122e+04  -0.101 0.919211
+## CemntBd1              4.296e+02  6.103e+03   0.070 0.943890
+## HdBoard1             -3.144e+03  4.118e+03  -0.763 0.445391
+## ImStucc1              2.293e+04  9.286e+03   2.470 0.013654 *
+## MetalSd1              2.197e+03  4.384e+03   0.501 0.616398
+## Plywood1             -2.786e+03  3.861e+03  -0.722 0.470705
+## Stone1               -1.450e+04  1.271e+04  -1.140 0.254306
+## Stucco1              -6.114e+03  6.749e+03  -0.906 0.365197
+## VinylSd1              2.355e+03  4.408e+03   0.534 0.593308
+## WdSdng1              -4.954e+02  4.149e+03  -0.119 0.904968
+## WdShing1             -5.808e+03  6.558e+03  -0.886 0.375988
+## TotalSF                      NA         NA      NA       NA
+## TotalSFwBsmt          3.030e+00  7.792e+00   0.389 0.697485
+## TotalFullBath         2.227e+03  4.929e+03   0.452 0.651424
+## TotalHalfBath         1.311e+04  7.704e+03   1.702 0.088944 .
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-## 
+##
 ## Residual standard error: 26600 on 1249 degrees of freedom
-## Multiple R-squared:  0.904,  Adjusted R-squared:  0.8879 
+## Multiple R-squared:  0.904,  Adjusted R-squared:  0.8879
 ## F-statistic: 56.02 on 210 and 1249 DF,  p-value: &lt; 2.2e-16</code></pre>
 <p>The best model that I come up with is the following.</p>
 <pre class="r"><code class="hljs">lm1 &lt;- lm(SalePrice ~ Neighborhood + X1stFlrSF + X2ndFlrSF + OverallQual + YearBuilt
@@ -966,7 +965,7 @@ Submission$house_test.Id &lt;- <span class="hljs-literal"><span class="hljs-lite
 Submission$house_test.SalePrice &lt;- <span class="hljs-literal"><span class="hljs-literal">NULL</span></span>
 
 
-setwd(<span class="hljs-string"><span class="hljs-string">"H:/Google Drive/Stats Projects/Data Sets"</span></span>) 
+setwd(<span class="hljs-string"><span class="hljs-string">"H:/Google Drive/Stats Projects/Data Sets"</span></span>)
 write.csv(Submission, <span class="hljs-string"><span class="hljs-string">"Kaggle_House_Submission.csv"</span></span>, row.names = <span class="hljs-literal"><span class="hljs-literal">FALSE</span></span>)</code></pre>
 <p>As of the time of writing this, my predictions were good for top 25% on the Kaggle leaderboard.</p>
 </div>
