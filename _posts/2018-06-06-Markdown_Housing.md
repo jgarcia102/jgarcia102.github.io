@@ -7,4 +7,4 @@ header:
 excerpt: "Machine Learning, Housing, Regression"
 ---
 
-{% include Titanic_Writeup_wo_wa.html %}
+{% include Kaggle_House_Writeup2.html %}

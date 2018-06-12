@@ -9,4 +9,4 @@ excerpt: "Machine Learning, Titanic, Classification"
 #### *John Garcia*
 #### *May 22, 2018*
 
-{% include Markdown_Titanic.html %}
+{% include Titanic_Writeup_wo_wa.html %}
