@@ -3,7 +3,7 @@ title: "Machine Learning: Predicting House Prices in Ames, Iowa"
 date: 2018-05-26
 tags: [machine learning, regression, Kaggle]
 header:
-  image: "/images/Titanic.jpg"
+  image: "/images/suburban-houses.jpg"
 excerpt: "Machine Learning, Housing, Regression"
 ---
 #### *John Garcia*
