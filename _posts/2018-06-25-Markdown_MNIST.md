@@ -1,5 +1,5 @@
 ---
-title: "Image Classification: Creating a Neural Network to recognize student Handwriting"
+title: "Image Classification: Creating a Neural Network to Recognize Student Handwriting"
 date: 2018-06-25
 tags: [classification, neural network, Kaggle]
 header:
