@@ -16,7 +16,7 @@ enjoyed watching high scoring games or dominating pitching performances.
 
 One of my favorite pitchers to watch in the mid-2000s was Johan Santana of the Twins.
 Santana threw a mid-90s fastball, a slider, and a changeup with excellent command,
-and would make batters loo silly with some of the swings they took, especially on
+and would make batters look silly with some of the swings they took, especially on
 changeups. I always wondered though, what made changeups effective? Fastballs are
 easy, look at velocity, movement, and control. Curveball and slider effectiveness
 can be determined by movement and control. For changeups, there are the obvious
@@ -31,7 +31,7 @@ provides data on horizontal and vertical movement of changeups. It also collecte
 fastball data from each pitcher, since I want to look at the difference in velocity
 between a pitcher's fastball and changeup. To determine a pitcher's effectiveness,
 I will be looking at three measure of performance: batting average against, strikeout
-rate, and the pitch type linear weight(often called "pitch value") for the pitchers
+rate, and the pitch type linear weight (often called "pitch value") for the pitchers
 changeup. Pitch value for a pitcher's change up will look at all of the changeups
 a pitcher threw in a season and look at how well a batter performed against them
 based on the run expectancy of the count the changeup was thrown in. For more
@@ -58,6 +58,8 @@ the search window, but he will not show up if he does not throw a changeup.
 
 {% include Tableau_Pitch_Value.html %}
 
+You can find a full size version of the visualization [here](https://public.tableau.com/views/MLBPitcherData_0/FullSizePitchValueDashboard?:embed=y&:display_count=yes).
+
 The graph provided an few insights. I was not sure how much movement would contribute
 to a changeups effectiveness. I would have thought that if anything when I filtered
 for pitchers with an effective changeup, the boundaries for the distribution would
@@ -75,11 +77,16 @@ I also looked at changeup effectiveness measured by batting average against and
 strikeouts per 9 innings. These metrics are more difficult to use. They can be
 ineffective if a pitcher does not throw very many fastballs or changeups. On these
 graphs I have provided the ability to filter for the percentage of fastballs and
-changeups thrown.
+changeups thrown. For batting average against, don't forget that lower numbers
+denote an effective pitcher.
 
 {% include Tableau_BAA.html %}
 
 {% include Tableau_Strikeout_Rate.html %}
+
+You can find a full size version of the batting average against visualization [here](https://public.tableau.com/views/MLBPitcherData_0/FullSizeBAADashboard?:embed=y&:display_count=yes).
+
+You can find a full size version of the batting average against visualization [here](https://public.tableau.com/views/MLBPitcherData_0/FullSizeStrikeoutRateDashboard?:embed=y&:display_count=yes&publish=yes).
 
 The batting average graph provides a minor indication that there is importance to
 having a larger change in velocity. When I set the fastball and changeup percentage
