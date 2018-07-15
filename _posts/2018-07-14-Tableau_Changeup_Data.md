@@ -86,7 +86,7 @@ denote an effective pitcher.
 
 You can find a full size version of the batting average against visualization [here](https://public.tableau.com/views/MLBPitcherData_0/FullSizeBAADashboard?:embed=y&:display_count=yes).
 
-You can find a full size version of the batting average against visualization [here](https://public.tableau.com/views/MLBPitcherData_0/FullSizeStrikeoutRateDashboard?:embed=y&:display_count=yes&publish=yes).
+You can find a full size version of the strikeout rate visualization [here](https://public.tableau.com/views/MLBPitcherData_0/FullSizeStrikeoutRateDashboard?:embed=y&:display_count=yes&publish=yes).
 
 The batting average graph provides a minor indication that there is importance to
 having a larger change in velocity. When I set the fastball and changeup percentage
